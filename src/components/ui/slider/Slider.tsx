@@ -29,6 +29,7 @@ export const Slider = () => {
                                 src={"/imgs/slider-three.png"}
                                 alt="profile"
                                 fill={true}
+                                quality={100}
                                 className="absolute inset-0 w-full h-full brightness-125"
 
                             />
@@ -40,6 +41,7 @@ export const Slider = () => {
                     <SwiperSlide>
                         <div className="w-full relative h-full sm:h-[37.5vw] imageContainer">
                             <Image
+                                quality={100}
                                 src={"/imgs/slider-nine.png"}
                                 alt="profile"
                                 fill={true}
