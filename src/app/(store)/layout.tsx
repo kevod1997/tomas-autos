@@ -1,5 +1,4 @@
-import { Sidebar, TopMenu } from "@/components";
-
+import { Footer, Sidebar, TopMenu, WhatsAppSticky } from "@/components";
 
 
 export default function StoreLayout( { children }: {
@@ -17,8 +16,11 @@ export default function StoreLayout( { children }: {
         { children }
 
       </div>
-
-     
+      <div className="flex">
+      <WhatsAppSticky name="Juani" />
+      <WhatsAppSticky name="Tomas" className="mb-16"/>
+      </div>
+     <Footer />
     </main>
   );
 }

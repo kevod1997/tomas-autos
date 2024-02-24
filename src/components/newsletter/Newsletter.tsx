@@ -1,12 +1,20 @@
+'use client'
+
 import Image from "next/image";
-import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 export const Newsletter = () => {
 
     return (
-        <div>
-            <div className="mx-4 md:mx-12 py-8 md:py-12 grid place-content-center px-4 md:px-0">
-                <div className="lg:flex justify-start lg:gap-28">
+            <motion.div className=" py-8 md:py-8 grid place-content-center px-4 md:px-0 mb-4" initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{delay: 0.2, duration: 0.5 }}
+              variants={{
+                hidden: { opacity: 0, x: 50 },
+                visible: { opacity: 1, x: 0 },
+              }}>
+                <div className="lg:flex justify-start lg:gap-28" >
                     <div>
                         <h1 className="font-semibold text-5xl text-center sm:text-left">Enterate primero de nuestros ingresos</h1>
                         <p className="pt-8 md:pt-4 text-gray-600">Entendemos la importancia de encontrar el vehículo perfecto que se adapte a tus necesidades y estilo de vida. Por eso, constantemente actualizamos nuestro catálogo con nuevos modelos y opciones variadas.
@@ -19,19 +27,14 @@ export const Newsletter = () => {
                             <button className="w-full md:w-auto btn-primary mt-2 sm:mt-0">Suscribite</button>
                         </div>
                     </div>
-                    <div className="pt-8 lg:pt-0 h1/2">
-                        <Image  src="/imgs/newsletter-image.jpg" alt="newsletter" width={630} height={400} className="rounded-md hidden sm:block" />
+                    <div className="pt-8 lg:pt-0 ">
+                        <Image  src="/imgs/newsletter-image.jpg" alt="newsletter" width={553} height={400} className="rounded-md hidden sm:block" />
                         <div className="rounded-md sm:hidden"> 
                            
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-
-
+            </motion.div>
     );
 }
 

@@ -4,7 +4,7 @@ import { useUIStore } from "@/store";
 import clsx from "clsx";
 import Link from "next/link";
 import { IoCloseOutline, IoCarSportOutline, IoCashOutline } from "react-icons/io5";
-import WhatsAppLink from "../whatsapp/WhatsAppLogo";
+import WhatsAppLink from "./whatsapp/WhatsAppLogo";
 
 
 
@@ -51,7 +51,7 @@ export const Sidebar = () => {
                     <span className="ml-3 text-xl">Unidades</span>
                 </Link>
                 <Link
-                    href="/unidades"
+                    href="/vende-tu-auto"
                     onClick={() => closeMenu()}
                     className="flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all"
                 >

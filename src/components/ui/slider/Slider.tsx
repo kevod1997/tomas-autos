@@ -33,7 +33,7 @@ export const Slider = () => {
                                 className="absolute inset-0 w-full h-full brightness-125"
 
                             />
-                            <Link href="/autos" className="enlaceCatalogo">
+                            <Link href="/unidades" className="enlaceCatalogo">
                                 <span className="sr-only">Ver Catálogo</span>
                             </Link>
                         </div>
