@@ -4,24 +4,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 
 import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 
 export const Slider = () => {
     return (
         <section className='mt-[-25px] w-full'>
-            <div className=''>
+            <div>
                 <Swiper
-                    navigation
+                    
                     pagination={{ type: 'fraction' }}
                     autoplay={{
                         delay: 5000,
                     }}
-                    modules={[Navigation, Autoplay]}
-                    className=''
+                    modules={[ Autoplay]}
                 >
                     <SwiperSlide>
                         <div className="w-full relative h-full sm:h-[37.5vw] imageContainer">

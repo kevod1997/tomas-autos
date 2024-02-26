@@ -1,14 +1,12 @@
 
 .swiper-slide {
-  
-  /* Center slide text vertically */
   display: flex;
 }
 
 
 .swiper {
   width: 100%;
-  height: 70vh; /* Ajusta esto a 50vh para que sea la mitad de la altura de la ventana del navegador */
+  height: 75vh; 
   margin-left: auto;
   margin-right: auto;
 }

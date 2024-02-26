@@ -10,7 +10,7 @@ import WhatsAppLink from "../sidebar/whatsapp/WhatsAppLogo";
 const menuItems = [
   { href: "/", label: "Home" },
   { href: "/unidades", label: "Unidades" },
-  { href: "/vende-tu-auto", label: "Vende tu auto" },
+  { href: "/vende", label: "Vende tu auto" },
 ];
 
 export const TopMenu = () => {

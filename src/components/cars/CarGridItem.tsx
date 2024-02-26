@@ -3,6 +3,7 @@
 import { Car } from "@/interfaces/car.interface"
 import { motion } from 'framer-motion';
 import Image from "next/image";
+import Link from "next/link";
 
 
 export const CarGridItem = () => {
@@ -35,7 +36,9 @@ export const CarGridItem = () => {
             <p className="text-sm text-gray-600">FREEDOM S-DESING 1.8 L AT6 L23</p>
             <p className="text-xl font-bold mt-2">$27.230.000</p>
             <p className="text-sm text-gray-600 mb-2">2015 - 150.000 KM</p>
+            <Link href={"/unidades/1"}>
             <button className="btn-primary w-full">VER MÁS</button>
+            </Link>
         </motion.div>
     )
 }

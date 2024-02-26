@@ -22,8 +22,8 @@ export default function sellPage() {
       <div className="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 pt-6 mb-12 gap-4">
         <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 gap-2 sm:mx-0 mx-2">
           <CategoryCard
-            title="OBTENE TU VALORACIÓN"
-            description="Dejanos los datos de tu auto y te contactamos para darte una valoración personalizada"
+            title="OBTENE TU VALORACIÓN PERSONALIZADA"
+            description="Completa el formulario y te contactamos para darte una valoración justa y precisa de tu vehículo"
             icon={<IoChatboxEllipsesOutline size={50} />}
           />
           <CategoryCard

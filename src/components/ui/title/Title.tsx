@@ -12,10 +12,12 @@ export const Title = ({ title, subtitle, className }: Props) => {
             <h1 className='antialiased md:text-xl font-semibold'>
                 {title}
             </h1>
-            -
             {
                 subtitle && (
+                    <>
+                    <p>-</p>
                     <h2 className="md:text-xl">{subtitle}</h2>
+                    </>
                 )
             }
         </div>

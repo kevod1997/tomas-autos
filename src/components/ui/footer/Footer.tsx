@@ -1,38 +1,49 @@
+import Image from "next/image";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white pt-10 pb-4">
-    <div className="max-w-6xl mx-auto px-5 sm:px-10 flex flex-wrap justify-between items-center mb-4">
-      <div className="mb-4 sm:mb-0">
-        <img src="https://placehold.co/200x50?text=TOMAS-AUTOS&font=sans" alt="JR Automotores logo" />
+    <footer className="bg-gray-500 text-white pt-10 pb-4">
+      <div className="max-w-6xl mx-auto px-5 sm:px-10 grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <div className="sm:mb-0 hidden sm:block">
+          <Image src="/imgs/logo-tr.png" alt="JR Automotores logo" width={125} height={125} className="mt-[-10px]" />
+        </div>
+        <div className="col-span-2 sm:col-span-1">
+          <div className="flex  justify-center items-center mb-2">
+            <FaPhone className="text-blue-400 mr-2" />
+            <span>2284-537622</span>
+          </div>
+          <div className="flex  justify-center items-center mb-2">
+            <FaPhone className="text-blue-400 mr-2" />
+            <span>2284-562439</span>
+          </div>
+          <div className="flex  justify-center items-center mb-2">
+            <FaEnvelope className="text-blue-400 mr-2" />
+            <span>tomas-autos@gmail.com</span>
+          </div>
+          <div className="flex  justify-center items-center">
+            <FaMapMarkerAlt className="text-blue-400 mr-2" />
+            <span>Av. Urquiza 2216, Olavarria</span>
+          </div>
+        </div>
+        <div className="col-span-2 sm:col-span-1 flex flex-col items-center">
+          <h3 className="text-lg mb-4">Seguinos en nuestras redes!</h3>
+          <div className="flex gap-8">
+            <a href="#" className="text-blue-600 hover:text-white">
+              <FaFacebookF size={40} />
+            </a>
+            <a href="#" className="text-red-700 hover:text-white">
+              <FaInstagram size={40} />
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="text-sm">
-        <div className="flex items-center mb-2">
-          <i className="fas fa-phone-alt text-blue-400 mr-2"></i>
-          <span>011 4574-0056</span>
-        </div>
-        <div className="flex items-center mb-2">
-          <i className="fas fa-envelope text-blue-400 mr-2"></i>
-          <span>info@jrautomotores.com.ar</span>
-        </div>
-        <div className="flex items-center mb-4">
-          <i className="fas fa-map-marker-alt text-blue-400 mr-2"></i>
-          <span>Av. de los Constituyentes 5640 Ciudad Autónoma de Buenos Aires</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-facebook-f"></i>Facebook</a>
-          <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-WA"></i>Instagram</a>
-          <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-WA"></i>WhatsApp</a>
-          <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-instagram"></i>WhatsApp</a>
-        </div>
+      <div className="w-full h-px bg-gray-400 my-4" />
+      <div className="text-center text-xs">
+        © 2024 Tomas Autos | Todos los derechos reservados.
       </div>
-    </div>
-    <div className="w-full h-px bg-gray-500 mb-4" />
-    <div className="text-center text-xs text-gray-500 mt-2">
-      © 2023 JR Automotores. Todos los derechos reservados. | Defensa del Consumidor
-    </div>
-  </footer>
+    </footer>
   );
 };
 
