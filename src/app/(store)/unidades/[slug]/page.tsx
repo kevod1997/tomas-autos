@@ -7,6 +7,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 export default async function CarBySlugPage() {
   return (
+    <>
     <div className="sm:mx-44 md:mx-72">
       <div className="flex w-full justify-between pt-6  items-center sm:px-0 px-5">
       <Title
@@ -34,7 +35,7 @@ export default async function CarBySlugPage() {
           images={["/imgs/Car.jpeg", "/imgs/car-two.jpeg", "/imgs/car-two.jpeg", "/imgs/car-two.jpeg", "/imgs/mercho.jpeg","/imgs/mercho2.jpeg",]}
           className="hidden md:block"
         />
-      </div>
+      </div> 
 
       {/* Detalles */}
       <div className="col-span-4 px-5">
@@ -71,5 +72,6 @@ export default async function CarBySlugPage() {
       </div>
     </div>
     </div>
+    </>
   )
 }

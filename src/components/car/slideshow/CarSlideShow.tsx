@@ -49,7 +49,7 @@ export const ProductSlideshow = ( { images, title, className }: Props ) => {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
         } }
         modules={ [ FreeMode, Navigation, Thumbs, Autoplay ] }
-        className="mySwiper2"
+        className="mySwiper2 width-[100%] h-[58vh] ml-auto mr-auto"
       >
 
         {

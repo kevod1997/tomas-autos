@@ -8,8 +8,7 @@ export default function StoreLayout({ children }: {
     <main className="min-h-screen">
       <TopMenu />
       <Sidebar />
-      <div className="px-0 mt-24">
-        {/* /*sm:px-10 */}
+      <div className="px-0 mt-[92px]">
         {children}
       </div>
       <WhatsAppSticky name="Juani" />

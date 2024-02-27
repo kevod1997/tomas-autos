@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
@@ -10,39 +9,34 @@ import 'swiper/css'
 
 export const Slider = () => {
     return (
-        <section className='mt-[-25px] w-full'>
+        <section >
             <div>
                 <Swiper
-                    
-                    pagination={{ type: 'fraction' }}
                     autoplay={{
                         delay: 5000,
                     }}
-                    modules={[ Autoplay]}
+                    modules={[Autoplay]}
+                    className="h-[75vw] md:h-[30vw]"
                 >
                     <SwiperSlide>
-                        <div className="w-full relative h-full sm:h-[37.5vw] imageContainer">
+                        <div className="h-[70vw] md:h-[30vw]">
                             <Image
-                                src={"/imgs/slider-three.png"}
+                                src={"/imgs/frente-s.jpeg"}
                                 alt="profile"
                                 fill={true}
                                 quality={100}
-                                className="absolute inset-0 w-full h-full brightness-125"
-
+                                className="brightness-105 imageContainer"
                             />
-                            <Link href="/unidades" className="enlaceCatalogo">
-                                <span className="sr-only">Ver Catálogo</span>
-                            </Link>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <div className="w-full relative h-full sm:h-[37.5vw] imageContainer">
+                        <div className="h-[70vw] md:h-[30vw]">
                             <Image
                                 quality={100}
                                 src={"/imgs/slider-nine.png"}
                                 alt="profile"
                                 fill={true}
-                                className="absolute inset-0 w-full h-full brightness-125"
+                                className="brightness-125 imageContainer"
                             />
                         </div>
                     </SwiperSlide>
