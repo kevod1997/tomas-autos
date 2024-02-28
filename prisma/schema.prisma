@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  user
+}
+
+enum Transmission {
+  Automatico
+  Manual
+}
+
+enum Category {
+  Nuevo
+  Usado
+}
+
+model Car {
+  id           String       @id @default(uuid())
+  title        String
+  model        String
+  price        Int
+  kms          Int
+  anio         Int
+  slug         String       @unique
+  transmission Transmission
+  category     Category
+  createdAt    DateTime     @default(now())
+  brandId      Int
+  fuelId       Int
+  tagId        Int
+
+  brand    Brand      @relation(fields: [brandId], references: [id])
+  fuel     Fuel       @relation(fields: [fuelId], references: [id])
+  tag      Tag        @relation(fields: [tagId], references: [id])
+  CarImage CarImage[]
+}
+
+model Brand {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  cars Car[]
+}
+
+model Fuel {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  cars Car[]
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  cars Car[]
+}
+
+model CarImage {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  car   Car    @relation(fields: [carId], references: [id])
+  carId String
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(user)
+}
+
+model Suscriber {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+}

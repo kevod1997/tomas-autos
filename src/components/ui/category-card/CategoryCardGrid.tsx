@@ -28,7 +28,7 @@ export const CategoryCardGrid = () => {
     );
 
     return (
-        <div className="p-4">
+        <div className="px-2">
             <div className="grid gap-4 md:grid-cols-2">
                 {/* Para pantallas md y mayores */}
                 <div className="hidden md:block">

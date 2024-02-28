@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 // Componente con animación
 const AnimatedNewsletter = () => {
     return (
-        <motion.div className="py-8 grid place-content-center px-4 mb-4"
+        <motion.div className="grid place-content-center px-4 mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -42,7 +42,7 @@ const AnimatedNewsletter = () => {
 // Componente sin animación
 const StaticNewsletter = () => {
     return (
-        <div className="py-8 grid place-content-center px-4 mb-4">
+        <div className="grid place-content-center px-4 mb-12">
             <div className="lg:flex justify-start lg:gap-28" >
                 <div>
                     <h1 className="font-semibold text-5xl text-center sm:text-left">Enterate primero de nuestros ingresos</h1>

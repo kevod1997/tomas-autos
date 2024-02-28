@@ -1,5 +1,6 @@
-import { CarGrid, CategoryCardGrid, Newsletter, Slider, TitleSeparetor } from "@/components";
+'use client'
 
+import { CarGrid, CategoryCardGrid, Newsletter, Slider, TitleSeparetor } from "@/components";
 
 export default function Home() {
 
