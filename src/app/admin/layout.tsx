@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 import { UserButton, useUser } from '@clerk/nextjs';
 
-
 export default function AdminLayout({ children }: {
     children: React.ReactNode;
 }) {
@@ -30,9 +29,9 @@ export default function AdminLayout({ children }: {
             <div className="h-screen">
                 <div className="p-4 flex gap-12 bg-slate-300">
                     <UserButton afterSignOutUrl='/' />
-                    <p className="font-light">Página de Administrador</p>
-                    <Link href='#' className="font-light">Autos</Link >
-                    <Link href='#' className="font-light">Agregar Auto</Link >
+                    <p className="bg-white rounded-md shadow-md p-1 font-semibold">Panel de Administrador</p>
+                    <Link href='/admin/autos' className="p-1 font-semibold">Autos</Link >
+                    <Link href='/admin/autos/nuevo' className="p-1 font-semibold">Agregar Auto</Link >
                 </div>
                 {children}
             </div>

@@ -1,17 +1,21 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: 'Panel de Administrador',
+};
+
 export default function CarsPage() {
   return (
     <>
       {/* <Title title="Mantenimiento de productos" /> */}
 
-      <div className="flex justify-end mb-5">
+      {/* <div className="flex justify-end mb-5">
         <Link href="/admin/product/new" className="btn-primary">
           Nuevo producto
         </Link>
-      </div>
+      </div> */}
 
-      <div className="mb-10">
+      <div className="mb-10 overflow-x-auto">
         <table className="min-w-full">
           <thead className="bg-gray-200 border-b">
             <tr>
@@ -37,19 +41,13 @@ export default function CarsPage() {
                 scope="col"
                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
               >
-                Género
+                Año
               </th>
-              <th
-                scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-              >
-                Inventario
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Editar
               </th>
-              <th
-                scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-              >
-                Tallas
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Eliminar
               </th>
             </tr>
           </thead>
