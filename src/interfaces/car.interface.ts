@@ -1,18 +1,20 @@
 export interface Car {
     id: string;
     title: string;
-    modelo: string;
-    marca: string;
-    precio: number;
+    model: string;
+    price: number;
     km: number;
     year: number;
-    imageUrl?: string[];
-    transmision?: Transmision;
+    slug: string;
+    transmision: Transmision;
+    categoria: Categoria;
+    createdAt: Date;
     combustible?: Combustible;
-    categoria?: Categoria;
-    destacado?: boolean;
+    images?: string[];
+    tag?: string;
 }
 
-type Transmision = "manual" | "automatica";
+type Transmision = "Manual" | "Automatico";
+type Categoria = "Nuevo" | "Usado";
+
 type Combustible = "nafta" | "diesel" | "electrico" | "hibrido" | "gnc";
-type Categoria = "nuevo" | "usado";

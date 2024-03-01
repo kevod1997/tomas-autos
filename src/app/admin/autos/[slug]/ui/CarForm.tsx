@@ -1,17 +1,33 @@
-export const CarForm = () => {
-    return (
-        <form
-    //   onSubmit={handleSubmit(onSubmit)}
-      className="grid px-5 mb-16 grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3"
+'use client'
+
+import { Brand, Fuel, Tag } from "@/interfaces";
+import { useForm } from "react-hook-form";
+
+interface Props {
+  brands: Brand[];
+  fuels: Fuel[];
+  tags: Tag[];
+}
+
+export const CarForm = ({ brands, tags, fuels }: Props) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid px-5 py-4 mb-16 grid-cols-1 sm:mx-4 sm:grid-cols-2 gap-3 mt-8 bg-white rounded-md shadow-md"
     >
-      {/* Textos */}
+
       <div className="w-full">
         <div className="flex flex-col mb-2">
           <span>Modelo</span>
           <input
             type="text"
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("title", { required: true })}
+            {...register("model", { required: true })}
           />
         </div>
 
@@ -20,34 +36,16 @@ export const CarForm = () => {
           <input
             type="text"
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("slug", { required: true })}
+            {...register("title", { required: true })}
           />
         </div>
-
-        {/* <div className="flex flex-col mb-2">
-          <span>Descripción</span>
-          <textarea
-            rows={5}
-            className="p-2 border rounded-md bg-gray-200"
-            // {...register("description", { required: true })}
-          ></textarea>
-        </div> */}
 
         <div className="flex flex-col mb-2">
           <span>Precio</span>
           <input
             type="number"
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("price", { required: true, min: 0 })}
-          />
-        </div>
-
-        <div className="flex flex-col mb-2">
-          <span>Tags</span>
-          <input
-            type="text"
-            className="p-2 border rounded-md bg-gray-200"
-            // {...register("tags", { required: true })}
+            {...register("price", { required: true, min: 0 })}
           />
         </div>
 
@@ -55,26 +53,25 @@ export const CarForm = () => {
           <span>Combustible</span>
           <select
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("gender", { required: true })}
+            {...register("fuelId", { required: true })}
           >
             <option value="">[Seleccione]</option>
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-            <option value="kid">Kid</option>
-            <option value="unisex">Unisex</option>
+            {fuels.map((fuel) => (
+              <option key={fuel.id} value={fuel.id}>
+                {fuel.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col mb-2">
           <span>Transmision</span>
           <select
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("gender", { required: true })}
+            {...register("transmission", { required: true })}
           >
             <option value="">[Seleccione]</option>
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-            <option value="kid">Kid</option>
-            <option value="unisex">Unisex</option>
+            <option value="manual">Manual</option>
+            <option value="automatica">Automatica</option>
           </select>
         </div>
 
@@ -82,57 +79,54 @@ export const CarForm = () => {
           <span>Marca</span>
           <select
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("categoryId", { required: true })}
+            {...register("brandId", { required: true })}
           >
             <option value="">[Seleccione]</option>
-            {/* {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+            {brands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
               </option>
-            ))} */}
+            ))}
           </select>
         </div>
-
-        <button className="btn-primary w-full">Guardar</button>
+        <button className="btn-primary w-full hidden sm:block">Guardar</button>
       </div>
 
-      {/* Selector de tallas y fotos */}
       <div className="w-full">
         <div className="flex flex-col mb-2">
           <span>Categoria</span>
-          <input
-            type="number"
+          <select
             className="p-2 border rounded-md bg-gray-200"
-            // {...register("inStock", { required: true, min: 0 })}
-          />
+            {...register("category", { required: true })}
+          >
+            <option value="">[Seleccione]</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="usado">Usado</option>
+          </select>
         </div>
 
-        {/* As checkboxes */}
+        <div className="flex flex-col mb-2">
+          <span>Tags(opcional) </span>
+          <select
+            className="p-2 border rounded-md bg-gray-200"
+            {...register("tagId", { required: true })}
+          >
+            <option value="">[Seleccione si es necesario]</option>
+            {tags.map((tag) => (
+              <option key={tag.id} value={tag.id}>
+                {tag.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="flex flex-col">
-          {/* <span>Tallas</span>
-          <div className="flex flex-wrap"> */}
-            {/* {sizes.map((size) => (
-              // bg-blue-500 text-white <--- si está seleccionado
-              <div
-                key={}
-                // onClick={() => onSizeChanged(size)}
-                // className={clsx(
-                //   "p-2 border cursor-pointer rounded-md mr-2 mb-2 w-14 transition-all text-center",
-                //   {
-                //     "bg-blue-500 text-white": getValues("sizes").includes(size),
-                //   }
-                // )}
-              >
-                <span>{}</span>
-              </div>
-            ))} */}
-          {/* </div> */}
 
           <div className="flex flex-col mb-2">
             <span>Fotos</span>
             <input
               type="file"
-            //   { ...register('images') }
+              {...register('images')}
               multiple
               className="p-2 border rounded-md bg-gray-200"
               accept="image/png, image/jpeg, image/avif"
@@ -160,8 +154,11 @@ export const CarForm = () => {
               </div>
             ))} */}
           </div>
+          <div>
+            <button className="btn-primary w-full sm:hidden block">Guardar</button>
+          </div>
         </div>
       </div>
     </form>
-    )
+  )
 }
