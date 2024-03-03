@@ -5,3 +5,4 @@ export * from './car/get-car-by-slug';
 export * from './car/create-update-car';
 export * from './car/delete-car-image';
 export * from './car/car-pagination';
+export * from './car/car-delete';

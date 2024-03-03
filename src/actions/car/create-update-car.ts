@@ -1,10 +1,10 @@
 'use server'
 
-import { Car } from '@/interfaces/car.interface';
+import { revalidatePath } from 'next/cache';
+import { Car } from '@prisma/client';
 import { uploadImages } from '@/lib/cloudinary';
 import prisma from '@/lib/prisma';
 import { carSchema } from '@/utils';
-import { revalidatePath } from 'next/cache';
 
 
 export const createUpdateCar = async (formData: FormData) => {
@@ -12,6 +12,7 @@ export const createUpdateCar = async (formData: FormData) => {
     const data = Object.fromEntries(formData);
 
     const carParsed = carSchema.safeParse(data);
+    console.log(carParsed)
 
     if (!carParsed.success) {
         console.log(carParsed.error);
@@ -21,6 +22,7 @@ export const createUpdateCar = async (formData: FormData) => {
     const car = carParsed.data;
 
     const { id, ...rest } = car;
+    console.log(rest)
 
     try {
 
@@ -41,6 +43,7 @@ export const createUpdateCar = async (formData: FormData) => {
                 data: {
                     ...rest,
                 }
+
             })
         }
 

@@ -30,11 +30,11 @@ model Car {
   createdAt    DateTime     @default(now())
   brandId      Int
   fuelId       Int
-  tagId        Int
+  tagId        Int?
 
   brand    Brand      @relation(fields: [brandId], references: [id])
   fuel     Fuel       @relation(fields: [fuelId], references: [id])
-  tag      Tag        @relation(fields: [tagId], references: [id])
+  tag      Tag?        @relation(fields: [tagId], references: [id])
   CarImage CarImage[]
 }
 

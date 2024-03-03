@@ -13,5 +13,5 @@ export const carSchema =  z.object({
    category: z.nativeEnum(Category),
    brandId: z.preprocess((val) => Number(val), z.number().min(1)),
    fuelId: z.preprocess((val) => Number(val), z.number().min(1)),
-   tagId: z.preprocess((val) => Number(val), z.number().min(1)),
+   tagId: z.preprocess((val) => Number(val), z.number().min(1)).optional(),
 })

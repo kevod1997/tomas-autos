@@ -8,9 +8,9 @@ interface Props {
   }
 }
 
-export const metadata = {
-  title: 'Panel de Administrador',
-};
+// export const metadata = {
+//   title: 'Panel de Administrador',
+// };
 
 export default async function ProductPage({ params }: Props) {
 

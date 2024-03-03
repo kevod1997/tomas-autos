@@ -25,7 +25,7 @@ interface FormInputs {
   transmission: string;
   brandId: number;
   category: string;
-  tagId: number;
+  tagId?: number;
   images?: FileList;
   slug: string;
 }
@@ -55,7 +55,8 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
     }
 
     Object.entries(carToSave).forEach(([key, value]) => {
-      if (value !== undefined) {
+      if (value !== undefined && !(key === 'tagId' && Number(value) < 1)) {
+        console.log(key, value)
         formData.append(key, value.toString());
       }
     });
@@ -65,7 +66,6 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
         formData.append('images', images[i]);
       }
     }
-
     const { ok, car: updatedCar } = await createUpdateCar(formData);
 
     if (!ok) {
@@ -94,7 +94,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
             {...register("title", { required: true })}
           />
         </div>
-        
+
         <div className="flex flex-col mb-2">
           <span>Modelo</span>
           <input
@@ -190,7 +190,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Tags(opcional) </span>
           <select
             className="p-2 border rounded-md bg-gray-200"
-            {...register("tagId", { required: true })}
+            {...register("tagId")}
           >
             <option value="">[Seleccione si es necesario]</option>
             {tags.map((tag) => (

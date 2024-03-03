@@ -1,0 +1,8 @@
+-- DropForeignKey
+ALTER TABLE "Car" DROP CONSTRAINT "Car_tagId_fkey";
+
+-- AlterTable
+ALTER TABLE "Car" ALTER COLUMN "tagId" DROP NOT NULL;
+
+-- AddForeignKey
+ALTER TABLE "Car" ADD CONSTRAINT "Car_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "Tag"("id") ON DELETE SET NULL ON UPDATE CASCADE;
