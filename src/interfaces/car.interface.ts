@@ -3,16 +3,23 @@ export interface Car {
     title: string;
     model: string;
     price: number;
-    km: number;
+    kms: number;
     year: number;
     slug: string;
-    transmision: Transmision;
-    categoria: Categoria;
+    transmission: Transmision;
+    category: Categoria;
     createdAt: Date;
     combustible?: Combustible;
     images?: string[];
     tag?: string;
 }
+
+export interface CarImage {
+    id: number;
+    url: string;
+    carId: string;
+  }
+  
 
 type Transmision = "Manual" | "Automatico";
 type Categoria = "Nuevo" | "Usado";

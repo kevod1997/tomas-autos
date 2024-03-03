@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { CarForm } from "./ui/CarForm";
-import { getBrands, getFuels, getTags } from "@/actions";
+import { getBrands, getCarBySlug, getFuels, getTags } from "@/actions";
 
 interface Props {
   params: {
@@ -17,24 +17,18 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = params;
 
 
-  const [brands, fuels, tags] = await Promise.all([
-    getBrands(), getFuels(), getTags()
+  const [brands, fuels, tags, car] = await Promise.all([
+    getBrands(), getFuels(), getTags(), getCarBySlug(slug),
   ]);
 
 
-  if (slug !== 'nuevo') {
+  if (slug !== 'nuevo' && !car) {
     redirect('/admin/autos')
   }
 
-  // const title = (slug === 'new') ? 'Nuevo producto' : 'Editar producto'
-
   return (
     <>
-      {/* <Title title={ title } /> */}
-
-      {/* <ProductForm product={ product ?? {} } categories={ categories } />
-         */}
-      <CarForm brands={brands} fuels={fuels} tags={tags} />
+      <CarForm brands={brands} fuels={fuels} tags={tags} car={ car ?? {}} />
     </>
   );
 }

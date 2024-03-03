@@ -1,20 +1,83 @@
 'use client'
 
-import { Brand, Fuel, Tag } from "@/interfaces";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { createUpdateCar, deleteCarImage } from "@/actions";
+import { CarImage } from "@/components";
+import { Brand, Car, CarImage as CarWithImage, Fuel, Tag } from "@/interfaces";
+import { generateSlug } from "@/utils/generate-slug";
 
 interface Props {
+  car: Partial<Car> & { CarImage?: CarWithImage[] }
   brands: Brand[];
   fuels: Fuel[];
   tags: Tag[];
 }
 
-export const CarForm = ({ brands, tags, fuels }: Props) => {
-  const { register, handleSubmit } = useForm();
+interface FormInputs {
+  model: string;
+  title: string;
+  price: number;
+  year: number;
+  kms: number;
+  fuelId: number;
+  transmission: string;
+  brandId: number;
+  category: string;
+  tagId: number;
+  images?: FileList;
+  slug: string;
+}
 
-  const onSubmit = (data: any) => {
+export const CarForm = ({ car, brands, tags, fuels }: Props) => {
+
+  const router = useRouter();
+
+  const { register, handleSubmit } = useForm<FormInputs>({
+    defaultValues: {
+      ...car,
+      images: undefined,
+    }
+  });
+
+  const onSubmit = async (data: FormInputs) => {
     console.log(data);
-  };
+    const formData = new FormData();
+
+    const { images, ...carToSave } = data;
+
+    const slug = generateSlug(data.category, data.title, data.model);
+    carToSave.slug = slug;
+
+    if (car.id) {
+      formData.append('id', car.id ?? '')
+    }
+
+    Object.entries(carToSave).forEach(([key, value]) => {
+      if (value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
+      }
+    }
+
+    const { ok, car: updatedCar } = await createUpdateCar(formData);
+
+    if (!ok) {
+      alert('Producto no se pudo actualizar');
+      return;
+    }
+
+    router.replace(`/admin/autos/${updatedCar?.slug}`)
+
+
+  }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -22,6 +85,16 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
     >
 
       <div className="w-full">
+
+        <div className="flex flex-col mb-2">
+          <span>Titulo</span>
+          <input
+            type="text"
+            className="p-2 border rounded-md bg-gray-200"
+            {...register("title", { required: true })}
+          />
+        </div>
+        
         <div className="flex flex-col mb-2">
           <span>Modelo</span>
           <input
@@ -32,20 +105,28 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Titulo</span>
-          <input
-            type="text"
-            className="p-2 border rounded-md bg-gray-200"
-            {...register("title", { required: true })}
-          />
-        </div>
-
-        <div className="flex flex-col mb-2">
           <span>Precio</span>
           <input
             type="number"
             className="p-2 border rounded-md bg-gray-200"
             {...register("price", { required: true, min: 0 })}
+          />
+        </div>
+        <div className="flex flex-col mb-2">
+          <span>Año</span>
+          <input
+            type="number"
+            className="p-2 border rounded-md bg-gray-200"
+            {...register("year", { required: true, min: 0 })}
+          />
+        </div>
+
+        <div className="flex flex-col mb-2">
+          <span>Kilometros</span>
+          <input
+            type="number"
+            className="p-2 border rounded-md bg-gray-200"
+            {...register("kms", { required: true, min: 0 })}
           />
         </div>
 
@@ -70,8 +151,8 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
             {...register("transmission", { required: true })}
           >
             <option value="">[Seleccione]</option>
-            <option value="manual">Manual</option>
-            <option value="automatica">Automatica</option>
+            <option value="Manual">Manual</option>
+            <option value="Automatico">Automatico</option>
           </select>
         </div>
 
@@ -100,8 +181,8 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
             {...register("category", { required: true })}
           >
             <option value="">[Seleccione]</option>
-            <option value="nuevo">Nuevo</option>
-            <option value="usado">Usado</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Usado">Usado</option>
           </select>
         </div>
 
@@ -134,11 +215,11 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {/* {product.ProductImage?.map((image) => (
+            {car.CarImage?.map((image) => (
               <div key={image.id}>
-                <ProductImage
-                  alt={product.title ?? ""}
-                  src={ image.url }
+                <Image
+                  alt={car.title ?? ""}
+                  src={image.url}
                   width={300}
                   height={300}
                   className="rounded-t shadow-md"
@@ -146,13 +227,13 @@ export const CarForm = ({ brands, tags, fuels }: Props) => {
 
                 <button
                   type="button"
-                //   onClick={() => deleteProductImage(image.id, image.url)}
+                  onClick={() => deleteCarImage(image.id, image.url)}
                   className="btn-danger w-full rounded-b-xl"
                 >
                   Eliminar
                 </button>
               </div>
-            ))} */}
+            ))}
           </div>
           <div>
             <button className="btn-primary w-full sm:hidden block">Guardar</button>
