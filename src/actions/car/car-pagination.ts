@@ -9,7 +9,7 @@ interface PaginationOptions {
   
   export const getPaginatedCarsWithImages = async ({
     page = 1,
-    take = 12,
+    take = 8,
   }: PaginationOptions) => {
     if (isNaN(Number(page))) page = 1;
     if (page < 1) page = 1;
@@ -21,11 +21,14 @@ interface PaginationOptions {
         skip: (page - 1) * take,
         include: {
           CarImage: {
-            take: 2,
+            take: 1,
             select: {
               url: true,
             },
           },
+          brand: true,
+          fuel: true,
+          tag: true,
         },
 
       });
@@ -41,6 +44,9 @@ interface PaginationOptions {
         cars: cars.map((car) => ({
           ...car,
           images: car.CarImage.map((image) => image.url),
+          brand: car.brand.name,
+          fuel: car.fuel?.name,
+          tag: car.tag?.name,
         })),
       };
     } catch (error) {

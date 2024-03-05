@@ -5,8 +5,6 @@ import { Pagination } from "@/components";
 import { FaEdit } from 'react-icons/fa';
 import { DeleteButton } from "./ui/DeleteButton";
 
-
-
 interface Props {
   searchParams: {
     page?: string;
@@ -15,12 +13,10 @@ interface Props {
 
 export default async function CarsPage({ searchParams }: Props) {
 
-
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
   const { cars, currentPage, totalPages } =
     await getPaginatedCarsWithImages({ page });
-  console.log(totalPages)
 
   return (
     <div className="mb-10">

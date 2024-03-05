@@ -1,14 +1,26 @@
-import { CarGrid, Title } from "@/components";
+import { CarGrid, Pagination, Title } from "@/components";
 import { CarFilter } from "./ui/CarFilter";
+import { getPaginatedCarsWithImages } from "@/actions";
 
 export const metadata = {
   title: 'Unidades',
   description: 'Catalogo de vehiculos disponibles en Tomas Autos',
 };
 
+interface Props {
+  searchParams: {
+    page?: string;
+  };
+}
 
-export default function ProductsPage() {
 
+
+export default async function ProductsPage({searchParams}: Props) {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+
+  const { cars, currentPage, totalPages } =
+    await getPaginatedCarsWithImages({ page });
+    console.log(cars);
 
   return (
     <div className="sm:mx-44 mb-12">
@@ -20,10 +32,10 @@ export default function ProductsPage() {
         />
         <CarFilter />
       </div>
-      <CarGrid />
-      <div className="my-4"></div>
-      <CarGrid />
-      <div className="my-4"></div>
+      <CarGrid cars={cars}/>
+      {totalPages > 1 && (
+        <Pagination totalPages={totalPages} />
+      )}
     </div>
   );
 }

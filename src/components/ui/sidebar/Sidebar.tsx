@@ -3,13 +3,15 @@
 import { useUIStore } from "@/store";
 import clsx from "clsx";
 import Link from "next/link";
-import { IoCloseOutline, IoCarSportOutline, IoCashOutline } from "react-icons/io5";
+import { IoCloseOutline, IoCarSportOutline, IoCashOutline, IoDiamondSharp } from "react-icons/io5";
 import WhatsAppLink from "./whatsapp/WhatsAppLogo";
+import { useUser } from "@clerk/nextjs";
 
 
 
 
 export const Sidebar = () => {
+    const {user} = useUser();
     const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
     const closeMenu = useUIStore((state) => state.closeSideMenu);
 
@@ -57,6 +59,19 @@ export const Sidebar = () => {
                 >
                     <IoCashOutline size={30} />
                     <span className="ml-3 text-xl">Vende tu auto</span>
+                </Link>
+                <Link
+                    href="/admin/autos"
+                    onClick={() => closeMenu()}
+                    className={clsx(
+                        "flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all",
+                        {
+                            'hidden': user?.organizationMemberships[0]?.role !== 'org:admin'
+                        }
+                    )}
+                >
+                    <IoDiamondSharp size={30} />
+                    <span className="ml-3 text-xl">Panel de administrador</span>
                 </Link>
 
                 <p className="text-xl mb-4 text-center mt-10">

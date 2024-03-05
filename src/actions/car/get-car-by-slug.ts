@@ -10,7 +10,10 @@ export const getCarBySlug = async( slug: string ) => {
 
     const car = await prisma.car.findFirst({
       include: {
-        CarImage: true
+        CarImage: true,
+        brand: true,
+        fuel: true,
+        tag: true,
       },
       where: {
         slug: slug,
@@ -22,7 +25,10 @@ export const getCarBySlug = async( slug: string ) => {
 
     return {
       ...car,
-      images: car.CarImage.map( image => image.url )
+      images: car.CarImage.map( image => image.url ),
+      brand: car.brand.name,
+      fuel: car.fuel?.name,
+      tag: car.tag?.name,
     };
 
     

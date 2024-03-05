@@ -37,13 +37,15 @@ export default function AdminLayout({ children }: Props) {
                 <div className="sm:px-5 py-4 flex items-center gap-4 sm:gap-12 bg-slate-300 text-xs sm:text-base">
                     <UserButton afterSignOutUrl='/' />
                     <p className="bg-white rounded-md shadow-md  p-1 font-semibold">Panel de Administrador</p>
-                    <Link href='/admin/autos' className={clsx(" p-1 font-semibold",{
+                    <Link href='/admin/autos' className={clsx(" p-1 font-semibold hover:text-blue-700",{
                         "text-blue-600": params === '/admin/autos',
                     })}
                     >Autos</Link >
-                    <Link href='/admin/autos/nuevo' className={clsx(" p-1 font-semibold",{
+                    <Link href='/admin/autos/nuevo' className={clsx(" p-1 font-semibold hover:text-blue-700",{
                         "text-blue-600": params === '/admin/autos/nuevo',
                     })}>Agregar Auto</Link >
+                    <Link href='/' className="p-1 font-semibold hover:text-blue-700"
+                    >Ir al home</Link >
                 </div>
                 {children}
             </div>

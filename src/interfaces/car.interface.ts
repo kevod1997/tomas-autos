@@ -6,12 +6,16 @@ export interface Car {
   kms: number;
   year: number;
   slug: string;
+  brand: string;
+  brandId: number;
   transmission: Transmision;
-  category: Categoria;
+  category: string;
   createdAt: Date;
-  combustible?: Combustible;
+  fuel?: string;
+  fuelId?: number;
   images?: string[];
-  tag?: string;
+  tag?: string | null; 
+  tagId?: number | null;
 }
 
 export interface CarImage {

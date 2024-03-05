@@ -2,6 +2,8 @@ export * from "./providers/Providers";
 
 export * from "./car/car-image/CarImage";
 export * from "./cars/CarGrid";
+export * from "./car/slideshow/CarMobileSlideshow"
+export * from "./car/slideshow/CarSlideShow"
 
 export * from "./ui/title/Title";
 export * from "./ui/top-menu/TopMenu";
@@ -14,3 +16,4 @@ export * from "./ui/newsletter/Newsletter";
 export * from "./ui/footer/Footer";
 export * from "./ui/whtasapp-sticky/WhatsappStickyIcon";
 export * from "./ui/pagination/Pagination"
+export * from "./ui/not-found/PageNotFound"

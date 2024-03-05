@@ -3,8 +3,14 @@
 import { motion } from 'framer-motion';
 import Image from "next/image";
 import Link from "next/link";
+import { Car, CarImage} from '@/interfaces';
+import clsx from 'clsx';
 
-export const CarGridItem = () => {
+interface Props {
+    car: Partial<Car> & { CarImage?: CarImage[] }
+}
+
+export const CarGridItem = ({car}: Props) => {
     const variants = {
         hidden: { opacity: 0, x: -50 },
         visible: { opacity: 1, x: 0 },
@@ -18,19 +24,19 @@ export const CarGridItem = () => {
                     <Image
                         fill={true}
                         className="object-fit rounded-md"
-                        src="/imgs/car-two.jpeg"
-                        alt="FIAT TORO - Dark grey pickup truck"
+                        src={car.CarImage?.[0]?.url ?? ''}
+                        alt={car.title?? ''}
                     />
                 </div>
                 <div className="absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md">
-                    #Exclusivo
+                   {car.tag && `#${car.tag}`}
                 </div>
             </div>
-            <h3 className="text-lg font-semibold mt-4">FIAT TORO</h3>
-            <p className="text-sm text-gray-600">FREEDOM S-DESING 1.8 L AT6 L23</p>
-            <p className="font-bold mt-2 text-2xl">$27.230.000</p>
-            <p className="text-sm text-gray-600 mb-2">2015 - 150.000 KM</p>
-            <Link href={"/unidades/1"}>
+            <h1 className="text-lg font-semibold mt-4">{car.title}</h1>
+            <p className="text-sm text-gray-600">{car.model}</p>
+            <p className="font-bold mt-2 text-2xl">${car.price?.toLocaleString('de-DE')}</p>
+            <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
+            <Link href={`/unidades/${car.slug}`}>
                 <button className="btn-primary w-full text-center">VER MÁS</button>
             </Link>
         </div>
@@ -51,19 +57,23 @@ export const CarGridItem = () => {
                     <Image
                         fill={true}
                         className="object-fit rounded-md"
-                        src="/imgs/car-two.jpeg"
-                        alt="FIAT TORO - Dark grey pickup truck"
+                        src={car.CarImage?.[0]?.url ?? ''}
+                        alt={car.title?? ''}
                     />
                 </div>
-                <div className="absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md">
-                    #Exclusivo
+                <div className={clsx(
+                    'absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md',
+                    { 'hidden': !car.tag }
+                
+                )}>
+                    #{car.tag}
                 </div>
             </div>
-            <h3 className="text-lg font-semibold mt-4">FIAT TORO</h3>
-            <p className="text-sm text-gray-600">FREEDOM S-DESING 1.8 L AT6 L23</p>
-            <p className="text-2xl font-bold mt-2">$27.230.000</p>
-            <p className="text-sm text-gray-600 mb-2">2015 - 150.000 KM</p>
-            <Link href={"/unidades/1"}>
+            <h3 className="text-lg font-semibold mt-4">{car.title}</h3>
+            <p className="text-sm text-gray-600">F{car.model}</p>
+            <p className="text-2xl font-bold mt-2">${car.price?.toLocaleString('de-DE')}</p>
+            <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
+            <Link href={`/unidades/${car.slug}`}>
                 <button className="btn-primary w-full text-center">VER MÁS</button>
             </Link>
         </motion.div>

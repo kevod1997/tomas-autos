@@ -1,8 +1,9 @@
-'use client'
-
 import { CarGrid, CategoryCardGrid, Newsletter, Slider, TitleSeparetor } from "@/components";
+import { getCarsWithTagId } from "@/actions";
 
-export default function Home() {
+export default async function Home() {
+
+  const {cars} = await getCarsWithTagId();
 
   return (
     <>
@@ -11,7 +12,7 @@ export default function Home() {
         <TitleSeparetor title="QUE BUSCAS?" />
         <CategoryCardGrid />
         <TitleSeparetor title="DESTACADOS" />
-        <CarGrid />
+        <CarGrid  cars={cars}/>
         <TitleSeparetor title="SUSCRIBITE A NUESTRO NEWSLETTER" />
         <Newsletter />
       </div>

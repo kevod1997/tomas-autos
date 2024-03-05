@@ -4,12 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { createUpdateCar, deleteCarImage } from "@/actions";
-import { CarImage } from "@/components";
-import { Brand, Car, CarImage as CarWithImage, Fuel, Tag } from "@/interfaces";
+import { Brand, Car, CarImage, Fuel, Tag } from "@/interfaces";
 import { generateSlug } from "@/utils/generate-slug";
 
 interface Props {
-  car: Partial<Car> & { CarImage?: CarWithImage[] }
+  car: Partial<Car> & { CarImage?: CarImage[] }
   brands: Brand[];
   fuels: Fuel[];
   tags: Tag[];
@@ -81,7 +80,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid px-5 py-4 mb-16 grid-cols-1 sm:mx-4 sm:grid-cols-2 gap-3 mt-8 bg-white rounded-md shadow-md"
+      className="grid px-5 py-4 mb-16 grid-cols-1 sm:mx-4 sm:grid-cols-2 gap-3 mt-4 bg-white rounded-md shadow-md"
     >
 
       <div className="w-full">
@@ -90,6 +89,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Titulo</span>
           <input
             type="text"
+            placeholder="Ejemplo: FIAT TORO"
             className="p-2 border rounded-md bg-gray-200"
             {...register("title", { required: true })}
           />
@@ -99,6 +99,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Modelo</span>
           <input
             type="text"
+            placeholder="Ejemplo: FREEDOM S-DESING 1.8 L AT6 L23"
             className="p-2 border rounded-md bg-gray-200"
             {...register("model", { required: true })}
           />
@@ -108,6 +109,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Precio</span>
           <input
             type="number"
+            placeholder="Ejemplo: 25000000 (sin puntos)"
             className="p-2 border rounded-md bg-gray-200"
             {...register("price", { required: true, min: 0 })}
           />
@@ -116,6 +118,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Año</span>
           <input
             type="number"
+            placeholder="Ejemplo: 2021"
             className="p-2 border rounded-md bg-gray-200"
             {...register("year", { required: true, min: 0 })}
           />
@@ -125,6 +128,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
           <span>Kilometros</span>
           <input
             type="number"
+            placeholder="Ejemplo: 80000 (sin puntos)"
             className="p-2 border rounded-md bg-gray-200"
             {...register("kms", { required: true, min: 0 })}
           />
@@ -214,13 +218,14 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {car.CarImage?.map((image) => (
+              
               <div key={image.id}>
                 <Image
                   alt={car.title ?? ""}
                   src={image.url}
-                  width={300}
+                  width={500}
                   height={300}
                   className="rounded-t shadow-md"
                 />
@@ -236,7 +241,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
             ))}
           </div>
           <div>
-            <button className="btn-primary w-full sm:hidden block">Guardar</button>
+            <button className="btn-primary w-full sm:hidden block mt-4">Guardar</button>
           </div>
         </div>
       </div>
