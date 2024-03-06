@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getCarBySlug } from "@/actions";
-import { Title, CarMobileSlideshow, ProductSlideshow } from "@/components";
+import { Title, CarMobileSlideshow, CarSlideshow } from "@/components";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { SharingAndContactSection } from "./ui/sharing-contact.section/SharingAndContact";
 
@@ -74,7 +74,7 @@ export default async function CarBySlugPage({ params }: Props) {
           />
 
           {/* Desktop Slideshow */}
-          <ProductSlideshow
+          <CarSlideshow
             title={car?.title ?? "Producto no encontrado"}
             images={car?.CarImage.map((image) => image.url) ?? []}
             className="hidden md:block"

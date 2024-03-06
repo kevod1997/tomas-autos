@@ -21,7 +21,10 @@ interface PaginationOptions {
         skip: (page - 1) * take,
         include: {
           CarImage: {
-            take: 1,
+            orderBy: {
+              mainImage: 'desc' // Asegura que las imágenes principales vengan primero
+            },
+            take: 1, // Asume que solo quieres la imagen principal
             select: {
               url: true,
             },

@@ -3,9 +3,12 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { createUpdateCar, deleteCarImage } from "@/actions";
+import { createUpdateCar } from "@/actions";
+import { mostrarAlertaExito, mostrarAlertaError } from '@/utils';
 import { Brand, Car, CarImage, Fuel, Tag } from "@/interfaces";
 import { generateSlug } from "@/utils/generate-slug";
+import { DeleteImageButton } from "./buttons/DeleteImageButton";
+import { useState } from "react";
 
 interface Props {
   car: Partial<Car> & { CarImage?: CarImage[] }
@@ -27,30 +30,38 @@ interface FormInputs {
   tagId?: number;
   images?: FileList;
   slug: string;
+  mainImage?: number;
 }
 
 export const CarForm = ({ car, brands, tags, fuels }: Props) => {
 
+  const [selectedMainImageId, setSelectedMainImageId] = useState< number | null>(car.CarImage?.find((image) => image.mainImage)?.id ?? null);
+  console.log(selectedMainImageId);
   const router = useRouter();
 
   const { register, handleSubmit } = useForm<FormInputs>({
     defaultValues: {
       ...car,
       images: undefined,
+      tagId: undefined, // Add this line to ensure tagId only allows number or undefined values
     }
   });
 
   const onSubmit = async (data: FormInputs) => {
     console.log(data);
     const formData = new FormData();
-
+    const carId = car.id;
     const { images, ...carToSave } = data;
 
     const slug = generateSlug(data.category, data.title, data.model);
     carToSave.slug = slug;
 
-    if (car.id) {
-      formData.append('id', car.id ?? '')
+    if (carId) {
+      formData.append('id', carId ?? '')
+    }
+
+    if (selectedMainImageId) {
+      formData.append('mainImage', selectedMainImageId.toString());
     }
 
     Object.entries(carToSave).forEach(([key, value]) => {
@@ -67,14 +78,21 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
     }
     const { ok, car: updatedCar } = await createUpdateCar(formData);
 
-    if (!ok) {
-      alert('Producto no se pudo actualizar');
-      return;
+    if (ok) {
+      let message = '';
+      if (!carId) {
+        const formattedPrice = updatedCar?.price.toLocaleString('es');
+        const formattedKms = updatedCar?.kms.toLocaleString('es');
+
+        message = `El auto ${updatedCar?.title} - ${updatedCar?.model}, con precio $${formattedPrice} y ${formattedKms} kms, ha sido creado exitosamente.`;
+      } else {
+        message = 'El auto ha sido actualizado exitosamente.';
+      }
+      await mostrarAlertaExito(message);
+      router.replace(`/admin/autos/${updatedCar?.slug}`);
+    } else {
+      mostrarAlertaError('No se pudo completar la operación. Volve a intentar.');
     }
-
-    router.replace(`/admin/autos/${updatedCar?.slug}`)
-
-
   }
 
   return (
@@ -220,8 +238,19 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {car.CarImage?.map((image) => (
-              
-              <div key={image.id}>
+              <div key={image.id} className="relative group">
+                {/* Checkbox sobre la imagen */}
+                <div className="absolute z-10 left-0 m-4 bg-white p-1 rounded-md opacity-80">
+                  <input
+                    type="checkbox"
+                    checked={selectedMainImageId === image.id}
+                    onChange={() => setSelectedMainImageId(image.id)}
+                    className="form-checkbox"
+                    id={`checkbox-${image.id}`}
+                  />
+                  {selectedMainImageId === image.id && <label htmlFor={`checkbox-${image.id}`} className=" ml-2">Principal</label>}
+                </div>
+
                 <Image
                   alt={car.title ?? ""}
                   src={image.url}
@@ -229,14 +258,9 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
                   height={300}
                   className="rounded-t shadow-md"
                 />
-
-                <button
-                  type="button"
-                  onClick={() => deleteCarImage(image.id, image.url)}
-                  className="btn-danger w-full rounded-b-xl"
-                >
-                  Eliminar
-                </button>
+                <div className="absolute w-full">
+                  <DeleteImageButton image={image} />
+                </div>
               </div>
             ))}
           </div>

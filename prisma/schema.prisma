@@ -59,7 +59,7 @@ model Tag {
 model CarImage {
   id  Int    @id @default(autoincrement())
   url String
-
+  mainImage Boolean @default(false)
   car   Car    @relation(fields: [carId], references: [id])
   carId String
 }

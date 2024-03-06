@@ -11,8 +11,10 @@ export default function StoreLayout({ children }: {
       <div className="px-0 mt-[92px]">
         {children}
       </div>
-      <WhatsAppSticky name="Juani" />
-      <WhatsAppSticky name="Tomas" className="mr-28" />
+      <div className="fixed bottom-2 right-0 items-center z-50 md:flex hidden">
+        <WhatsAppSticky name="Juani" href="https://wa.me/2284562439?text=" />
+        <WhatsAppSticky name="Tomas" href="https://wa.me/2284537622?text="  />
+      </div>
       <Footer />
     </main>
   );

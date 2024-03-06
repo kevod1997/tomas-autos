@@ -67,22 +67,22 @@ export default async function CarsPage({ searchParams }: Props) {
                   className="w-20 h-20 object-cover rounded"
                 />
               </td>
-              <td className="text-sm text-gray-900 font-light  whitespace-nowrap">
+              <td className="text-sm text-gray-900 font-light  ">
                 {car.title}
               </td>
-              <td className="text-sm text-gray-900 font-light  whitespace-nowrap">
+              <td className="text-sm text-gray-900 font-light  ">
                 {car.price.toLocaleString('de-DE')}
               </td>
-              <td className="text-sm text-gray-900 font-light  whitespace-nowrap">
+              <td className="text-sm text-gray-900 font-light  ">
                 {car.year}
               </td>
-              <td className="text-sm font-medium text-gray-900">
+              <td className="text-sm font-medium text-gray-900 pl-2">
                 <Link href={`/admin/autos/${car.slug}`}>
-                  <FaEdit />
+                  <FaEdit className="hover:scale-125" />
                 </Link>
               </td>
-              <td className="text-sm font-medium text-gray-900">
-                <DeleteButton carId={car.id} />
+              <td className="text-sm font-medium text-gray-900 ">
+                <DeleteButton car={car} />
               </td>
             </tr>
           ))}

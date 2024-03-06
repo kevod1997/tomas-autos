@@ -33,7 +33,7 @@ export const Footer = () => {
             <a href="#" className="text-blue-600 hover:text-white">
               <FaFacebookF size={40} />
             </a>
-            <a href="#" className="text-red-700 hover:text-white">
+            <a href="https://www.instagram.com/tomasautosolavarria/" target="_blank" className="text-red-700 hover:text-white">
               <FaInstagram size={40} />
             </a>
           </div>

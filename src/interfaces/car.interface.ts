@@ -22,6 +22,7 @@ export interface CarImage {
   id: number;
   url: string;
   carId: string;
+  mainImage: boolean;
 }
 
 

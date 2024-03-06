@@ -16,12 +16,15 @@ export const getCarsWithTagId = async () => {
         },
         take: take,
         include: {
-            CarImage: {
-                take: 1,
-                select: {
-                    url: true,
-                },
+          CarImage: {
+            orderBy: {
+              mainImage: 'desc' // Asegura que las imágenes principales vengan primero
             },
+            take: 1, // Asume que solo quieres la imagen principal
+            select: {
+              url: true,
+            },
+          },
             brand: true,
             fuel: true,
             tag: true,
