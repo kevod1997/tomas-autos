@@ -24,7 +24,7 @@ export default function AdminLayout({ children }: Props) {
             }
             router.push('/admin/autos');
         }
-    }, [isLoaded]);
+    }, [isLoaded, isSignedIn, user, router]);
 
     if (!isLoaded) {
         return <div className="h-screen flex justify-center items-center">

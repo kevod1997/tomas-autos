@@ -35,8 +35,7 @@ interface FormInputs {
 
 export const CarForm = ({ car, brands, tags, fuels }: Props) => {
 
-  const [selectedMainImageId, setSelectedMainImageId] = useState< number | null>(car.CarImage?.find((image) => image.mainImage)?.id ?? null);
-  console.log(selectedMainImageId);
+  const [selectedMainImageId, setSelectedMainImageId] = useState<number | null>(car.CarImage?.find((image) => image.mainImage)?.id ?? null);
   const router = useRouter();
 
   const { register, handleSubmit } = useForm<FormInputs>({
@@ -48,7 +47,6 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
   });
 
   const onSubmit = async (data: FormInputs) => {
-    console.log(data);
     const formData = new FormData();
     const carId = car.id;
     const { images, ...carToSave } = data;
@@ -66,7 +64,6 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
 
     Object.entries(carToSave).forEach(([key, value]) => {
       if (value !== undefined && !(key === 'tagId' && Number(value) < 1)) {
-        console.log(key, value)
         formData.append(key, value.toString());
       }
     });
@@ -85,11 +82,11 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
         const formattedKms = updatedCar?.kms.toLocaleString('es');
 
         message = `El auto ${updatedCar?.title} - ${updatedCar?.model}, con precio $${formattedPrice} y ${formattedKms} kms, ha sido creado exitosamente.`;
+        router.replace(`/admin/autos/${updatedCar?.slug}`);
       } else {
         message = 'El auto ha sido actualizado exitosamente.';
       }
       await mostrarAlertaExito(message);
-      router.replace(`/admin/autos/${updatedCar?.slug}`);
     } else {
       mostrarAlertaError('No se pudo completar la operación. Volve a intentar.');
     }

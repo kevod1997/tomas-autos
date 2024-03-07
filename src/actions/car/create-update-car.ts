@@ -12,7 +12,7 @@ export const createUpdateCar = async (formData: FormData) => {
     const data = Object.fromEntries(formData);
 
     const carParsed = carSchema.safeParse(data);
-    console.log(carParsed)
+    
 
     if (!carParsed.success) {
         console.log(carParsed.error);
@@ -22,6 +22,7 @@ export const createUpdateCar = async (formData: FormData) => {
     const car = carParsed.data;
 
     const { id, mainImage, ...rest } = car;
+    console.log(mainImage)
 
     try {
 
@@ -35,14 +36,16 @@ export const createUpdateCar = async (formData: FormData) => {
                     ...rest,
                 },
             });
-           await prisma.carImage.updateMany({
-                where: { carId: id, NOT: { id: mainImage } },
-                data: { mainImage: false },
-            }),
-            await prisma.carImage.update({
-                where: { id: mainImage },
-                data: { mainImage: true },
-            }); 
+            if (mainImage){
+                await prisma.carImage.updateMany({
+                     where: { carId: id, NOT: { id: mainImage } },
+                     data: { mainImage: false },
+                 }),
+                 await prisma.carImage.update({
+                     where: { id: mainImage },
+                     data: { mainImage: true },
+                 }); 
+            }
         } else {
             // Crear
             car = await prisma.car.create({

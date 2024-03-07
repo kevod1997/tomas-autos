@@ -45,7 +45,7 @@ export const CategoryCardGrid = () => {
                         title="VENDER"
                         description="Buscamos tu comprador ideal"
                         icon={<MdOutlineCarRental size={50} />}
-                        href="/vender"
+                        href="/vende"
                         xInitial={100}
                     />
                 </div>
@@ -64,7 +64,7 @@ export const CategoryCardGrid = () => {
                         title="VENDER"
                         description="Buscamos tu comprador ideal"
                         icon={<MdOutlineCarRental size={50} />}
-                        href="/vender"
+                        href="/vende"
                     />
                 </div>
             </div>

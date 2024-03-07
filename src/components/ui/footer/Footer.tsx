@@ -30,7 +30,7 @@ export const Footer = () => {
         <div className="col-span-2 sm:col-span-1 flex flex-col items-center">
           <h3 className="text-lg mb-4">Seguinos en nuestras redes!</h3>
           <div className="flex gap-8">
-            <a href="#" className="text-blue-600 hover:text-white">
+            <a href="https://www.facebook.com/tomasautosolavarria" target="_blank" className="text-blue-600 hover:text-white">
               <FaFacebookF size={40} />
             </a>
             <a href="https://www.instagram.com/tomasautosolavarria/" target="_blank" className="text-red-700 hover:text-white">
