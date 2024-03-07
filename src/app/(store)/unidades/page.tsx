@@ -1,6 +1,7 @@
 import { CarGrid, Pagination, Title } from "@/components";
-import { CarFilter } from "./ui/CarFilter";
 import { getPaginatedCarsWithImages } from "@/actions";
+import { CarFilter } from "./ui/CarFilter";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: 'Unidades',
@@ -10,32 +11,36 @@ export const metadata = {
 interface Props {
   searchParams: {
     page?: string;
+    orderBy?: string;
+    orderDirection?: string;
   };
 }
 
-
-
-export default async function ProductsPage({searchParams}: Props) {
+export default async function CarsPage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const orderBy = searchParams.orderBy || "tagId";
+  const orderDirection = searchParams.orderDirection as 'asc' | 'desc' || "asc";
 
-  const { cars, currentPage, totalPages } =
-    await getPaginatedCarsWithImages({ page });
-    console.log(cars);
+  const { cars, currentPage, totalPages, ok } = await getPaginatedCarsWithImages({ page, orderBy, orderDirection })
+
+  if (!ok) {
+    return notFound();
+  }
 
   return (
     <div className="sm:mx-44 mb-12">
-      <div className="w-full sm:flex sm:flex-row justify-between flex-col pt-6  items-center my-8">
+    <div className="w-full sm:flex sm:flex-row justify-between flex-col pt-6  items-center my-8">
         <Title
-          title="Catalogo"
+          title="Catálogo"
           subtitle="Unidades disponibles"
-          className="p-2 mb-4 sm:mb-0"
+          className="p-2 mb-4 "
         />
         <CarFilter />
       </div>
-      <CarGrid cars={cars}/>
-      {totalPages > 1 && (
-        <Pagination totalPages={totalPages} />
-      )}
-    </div>
+      <CarGrid cars={cars!} />
+            {totalPages! > 1 && (
+                <Pagination totalPages={totalPages ?? 0} />
+            )}
+  </div>
   );
 }

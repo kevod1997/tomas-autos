@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import Image from "next/image";
 import Link from "next/link";
-import { Car, CarImage} from '@/interfaces';
+import { Car, CarImage } from '@/interfaces';
 import clsx from 'clsx';
 
 interface Props {
     car: Partial<Car> & { CarImage?: CarImage[] }
 }
 
-export const CarGridItem = ({car}: Props) => {
+export const CarGridItem = ({ car }: Props) => {
     const variants = {
         hidden: { opacity: 0, x: -50 },
         visible: { opacity: 1, x: 0 },
@@ -25,15 +25,15 @@ export const CarGridItem = ({car}: Props) => {
                         fill={true}
                         className="object-fit rounded-md"
                         src={car.CarImage?.[0]?.url ?? ''}
-                        alt={car.title?? ''}
+                        alt={car.title ?? ''}
                     />
                 </div>
                 <div className="absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md">
-                   {car.tag && `#${car.tag}`}
+                    {car.tag && `#${car.tag}`}
                 </div>
             </div>
-            <h1 className="text-lg font-semibold mt-4">{car.title}</h1>
-            <p className="text-sm text-gray-600">{car.model}</p>
+            <h1 className="text-lg font-semibold mt-4 line-clamp-1">{car.title}</h1>
+            <p className="text-sm text-gray-600 line-clamp-1">{car.model}</p>
             <p className="font-bold mt-2 text-2xl">${car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
             <Link href={`/unidades/${car.slug}`}>
@@ -58,18 +58,18 @@ export const CarGridItem = ({car}: Props) => {
                         fill={true}
                         className="object-fit rounded-md"
                         src={car.CarImage?.[0]?.url ?? ''}
-                        alt={car.title?? ''}
+                        alt={car.title ?? ''}
                     />
                 </div>
                 <div className={clsx(
                     'absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md',
                     { 'hidden': !car.tag }
-                
+
                 )}>
                     #{car.tag}
                 </div>
             </div>
-            <h3 className="text-lg font-semibold mt-4">{car.title}</h3>
+            <h3 className="text-lg font-semibold mt-4 title line-clamp-1">{car.title}</h3>
             <p className="text-sm text-gray-600">F{car.model}</p>
             <p className="text-2xl font-bold mt-2">${car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>

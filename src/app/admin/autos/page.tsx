@@ -47,6 +47,12 @@ export default async function CarsPage({ searchParams }: Props) {
             >
               Año
             </th>
+            <th
+              scope="col"
+              className="text-sm font-medium text-gray-900  py-4 text-left"
+            >
+              Tag
+            </th>
             <th scope="col" className="text-sm font-medium text-gray-900  py-4 text-left">
               Editar
             </th>
@@ -56,7 +62,7 @@ export default async function CarsPage({ searchParams }: Props) {
           </tr>
         </thead>
         <tbody>
-          {cars.map((car: any) => (
+          {cars!.map((car: any) => (
             <tr key={car.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
               <td className=" text-sm font-medium text-gray-900">
                 <Image
@@ -67,14 +73,17 @@ export default async function CarsPage({ searchParams }: Props) {
                   className="w-20 h-20 object-cover rounded"
                 />
               </td>
-              <td className="text-sm text-gray-900 font-light  ">
+              <td className="text-xs sm:text-sm text-gray-900 font-light  ">
                 {car.title}
               </td>
-              <td className="text-sm text-gray-900 font-light  ">
+              <td className="text-xs sm:text-sm text-gray-900 font-light  ">
                 {car.price.toLocaleString('de-DE')}
               </td>
-              <td className="text-sm text-gray-900 font-light  ">
+              <td className="text-xs sm:text-sm text-gray-900 font-light  ">
                 {car.year}
+              </td>
+              <td className="text-xs sm:text-sm text-gray-900 font-light  ">
+                {car.tag!}
               </td>
               <td className="text-sm font-medium text-gray-900 pl-2">
                 <Link href={`/admin/autos/${car.slug}`}>
@@ -88,8 +97,8 @@ export default async function CarsPage({ searchParams }: Props) {
           ))}
         </tbody>
       </table>
-      {totalPages > 1 && (
-        <Pagination totalPages={totalPages} />
+      {totalPages! > 1 && (
+        <Pagination totalPages={totalPages!} />
       )}
     </div>
   );

@@ -3,15 +3,27 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { addSuscriber } from "@/actions";
+import { mostrarAlertaError, mostrarAlertaExito } from "@/utils";
 
 
 // Componente con animación
 const AnimatedNewsletter = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data: any) => {
-        console.log(data);
-        // Aquí puedes implementar la lógica para procesar los datos del formulario, como enviarlos a una API
-      };
+    const { register, handleSubmit, formState: { errors }, clearErrors } = useForm();
+    const onSubmit = async(data: any) => {
+        const result = await addSuscriber(data);
+        if(result?.ok){
+            mostrarAlertaExito(result.message);
+        }else{
+            mostrarAlertaError(result?.message ?? '');
+        }
+    };
+
+      const handleError = (fieldName: string | readonly string[] | undefined) => {
+        setTimeout(() => {
+           clearErrors(fieldName);
+        }, 2000);
+    };
     return (
         <motion.div className="grid place-content-center px-4 mb-16"
             initial="hidden"
@@ -28,9 +40,10 @@ const AnimatedNewsletter = () => {
                     <p className="pt-8 md:pt-4 text-gray-600">Entendemos la importancia de encontrar el vehículo perfecto que se adapte a tus necesidades y estilo de vida. Por eso, constantemente actualizamos nuestro catálogo con nuevos modelos y opciones variadas.
 
                     </p>
-                    <p className="pt-8 md:pt-4 text-gray-600">
+                    <p className="pt-8 md:pt-4 text-gray-600 mb-8">
                         Al suscribirte a nuestro boletín, te ofrecemos una forma sencilla de mantenerse al tanto de los últimos ingresos.</p>
-                    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 md:flex justify-start md:gap-4">
+                    {errors.email?.message && <p className="text-red-500 text-xs italic">{errors.email.message as string}</p>}
+                    <form onSubmit={handleSubmit(onSubmit)} className="md:flex justify-start md:gap-4">
                         <input
                             {...register("email", {
                                 required: "El correo electrónico es obligatorio",
@@ -39,11 +52,12 @@ const AnimatedNewsletter = () => {
                                     message: "Ingresa un correo electrónico válido",
                                 },
                             })}
+                            onChange={() => errors.email && handleError("email")}
                             type="email"
                             placeholder="Ingresa tu Email"
                             className={`placeholder-gray-600 w-full md:w-1/2 p-4 grid place-items-center border rounded-md focus:outline-none ${errors.email ? 'border-red-500' : ''}`}
                         />
-                        {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
+                       
                         <button type="submit" className="w-full md:w-auto btn-primary mt-2 sm:mt-0">
                             Suscribite
                         </button>
@@ -62,11 +76,21 @@ const AnimatedNewsletter = () => {
 
 // Componente sin animación
 const StaticNewsletter = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data: any) => {
-        console.log(data);
-        
-      };
+    const { register, handleSubmit, formState: { errors }, clearErrors } = useForm();
+    const onSubmit = async(data: any) => {
+        const result = await addSuscriber(data);
+        if(result?.ok){
+            mostrarAlertaExito(result.message);
+        }else{
+            mostrarAlertaError(result?.message ?? '');
+        }
+    };
+
+      const handleError = (fieldName: string | readonly string[] | undefined) => {
+        setTimeout(() => {
+           clearErrors(fieldName);
+        }, 2000);
+    };
     return (
         <div className="grid place-content-center px-4 mb-12">
             <div className="lg:flex justify-start lg:gap-28" >
@@ -75,9 +99,10 @@ const StaticNewsletter = () => {
                     <p className="pt-8 md:pt-4 text-gray-600">Entendemos la importancia de encontrar el vehículo perfecto que se adapte a tus necesidades y estilo de vida. Por eso, constantemente actualizamos nuestro catálogo con nuevos modelos y opciones variadas.
 
                     </p>
-                    <p className="pt-8 md:pt-4 text-gray-600">
+                    <p className="pt-8 md:pt-4 text-gray-600 mb-8">
                         Al suscribirte a nuestro boletín, te ofrecemos una forma sencilla de mantenerse al tanto de los últimos ingresos.</p>
-                    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 md:flex justify-start md:gap-4">
+                    {errors.email?.message && <p className="text-red-500 text-xs italic ">{errors.email.message as string}</p>}
+                    <form onSubmit={handleSubmit(onSubmit)} className="md:flex justify-start md:gap-4">
                         <input
                             {...register("email", {
                                 required: "El correo electrónico es obligatorio",
@@ -86,11 +111,11 @@ const StaticNewsletter = () => {
                                     message: "Ingresa un correo electrónico válido",
                                 },
                             })}
+                            onChange={() => errors.email && handleError("email")}
                             type="email"
                             placeholder="Ingresa tu Email"
                             className={`placeholder-gray-600 w-full md:w-1/2 p-4 grid place-items-center border rounded-md focus:outline-none ${errors.email ? 'border-red-500' : ''}`}
                         />
-                        {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
                         <button type="submit" className="w-full md:w-auto btn-primary mt-2 sm:mt-0">
                             Suscribite
                         </button>

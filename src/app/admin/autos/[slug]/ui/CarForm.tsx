@@ -258,7 +258,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
                   height={300}
                   className="rounded-t shadow-md"
                 />
-                <div className="absolute w-full">
+                <div className="w-full">
                   <DeleteImageButton image={image} />
                 </div>
               </div>

@@ -1,24 +1,37 @@
 'use server'
 
 import prisma from "@/lib/prisma";
+import { ok } from "assert";
 
 interface PaginationOptions {
     page?: number;
     take?: number;
+    orderBy?: string;
+    orderDirection?: 'asc' | 'desc';
   }
   
   export const getPaginatedCarsWithImages = async ({
     page = 1,
     take = 8,
+    orderBy = "tagId",
+    orderDirection = "asc",
   }: PaginationOptions) => {
     if (isNaN(Number(page))) page = 1;
     if (page < 1) page = 1;
+
+    let orderQuery = {};
+    if (orderBy) {
+      orderQuery = {
+        [orderBy]: orderDirection,
+      };
+    }
   
     try {
       // 1. Obtener los productos
       const cars = await prisma.car.findMany({
         take: take,
         skip: (page - 1) * take,
+        orderBy: orderQuery,
         include: {
           CarImage: {
             orderBy: {
@@ -42,6 +55,7 @@ interface PaginationOptions {
       const totalPages = Math.ceil(totalCount / take);
   
       return {
+        ok: true,
         currentPage: page,
         totalPages: totalPages,
         cars: cars.map((car) => ({
@@ -53,6 +67,8 @@ interface PaginationOptions {
         })),
       };
     } catch (error) {
-      throw new Error("No se pudo cargar los productos");
+      return {
+        ok: false,
+      };
     }
   };
