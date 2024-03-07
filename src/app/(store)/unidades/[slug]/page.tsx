@@ -34,7 +34,7 @@ export async function generateMetadata(
       description: `${car?.title ?? ""} ${car?.model ?? ""}`,
       images: [
         {
-          url: car?.CarImage[0]?.url ? `${metadataBase}${car.CarImage[0].url}` : `${metadataBase}/default-image.png`,
+          url: car?.CarImage[0]?.url ? `${car.CarImage[0].url}` : `${metadataBase}/default-image.png`,
         }
       ],
     },
