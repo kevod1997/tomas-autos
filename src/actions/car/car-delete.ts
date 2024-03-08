@@ -38,11 +38,10 @@ export const deleteCar = async (carId: string) => {
         //Revalidar los paths
         revalidatePath(`/admin/autos`);
         if (car) {
+            revalidatePath('/')
             revalidatePath(`/admin/autos/${car.slug}`);
             revalidatePath(`/unidades/${car.slug}`);
         }
-
-        console.log(`Car with ID ${carId} and its images have been deleted.`);
         return { ok: true };
 
     } catch (error) {

@@ -28,13 +28,14 @@ export const CarGridItem = ({ car }: Props) => {
                         alt={car.title ?? ''}
                     />
                 </div>
-                <div className="absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md">
-                    {car.tag && `#${car.tag}`}
-                </div>
+                {car.tag && <div className="absolute top-0 left-0 bg-red-600 text-white text-xs uppercase px-3 py-1 rounded-bl-md rounded-tr-md">
+                    {`#${car.tag}`}
+                </div>}
+
             </div>
             <h1 className="text-lg font-semibold mt-4 line-clamp-1">{car.title}</h1>
             <p className="text-sm text-gray-600 line-clamp-1">{car.model}</p>
-            <p className="font-bold mt-2 text-2xl">${car.price?.toLocaleString('de-DE')}</p>
+            <p className="font-bold mt-2 text-xl">${car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
             <Link href={`/unidades/${car.slug}`}>
                 <button className="btn-primary w-full text-center">VER MÁS</button>
