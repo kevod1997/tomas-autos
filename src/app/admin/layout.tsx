@@ -22,7 +22,9 @@ export default function AdminLayout({ children }: Props) {
             if (user?.organizationMemberships[0]?.role !== 'org:admin') {
                 setTimeout(() => router.push('/'), 1000);
             }
-            router.push('/admin/autos');
+            if (params === '/admin') {
+                router.push('/admin/autos');
+            }
         }
     }, [isLoaded, isSignedIn, user, router]);
 

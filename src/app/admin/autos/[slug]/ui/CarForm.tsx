@@ -9,6 +9,7 @@ import { Brand, Car, CarImage, Fuel, Tag } from "@/interfaces";
 import { generateSlug } from "@/utils/generate-slug";
 import { DeleteImageButton } from "./buttons/DeleteImageButton";
 import { useState } from "react";
+import clsx from "clsx";
 
 interface Props {
   car: Partial<Car> & { CarImage?: CarImage[] }
@@ -34,6 +35,7 @@ interface FormInputs {
 }
 
 export const CarForm = ({ car, brands, tags, fuels }: Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [selectedMainImageId, setSelectedMainImageId] = useState<number | null>(car.CarImage?.find((image) => image.mainImage)?.id ?? null);
   const router = useRouter();
@@ -42,11 +44,12 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
     defaultValues: {
       ...car,
       images: undefined,
-      tagId: undefined, // Add this line to ensure tagId only allows number or undefined values
+      tagId: car.tagId || undefined,
     }
   });
 
   const onSubmit = async (data: FormInputs) => {
+    setIsSubmitting(true);
     const formData = new FormData();
     const carId = car.id;
     const { images, ...carToSave } = data;
@@ -90,6 +93,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
     } else {
       mostrarAlertaError('No se pudo completar la operación. Volve a intentar.');
     }
+    setIsSubmitting(false);
   }
 
   return (
@@ -189,7 +193,11 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
             ))}
           </select>
         </div>
-        <button className="btn-primary w-full hidden sm:block">Guardar</button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={clsx("btn-primary w-full hidden sm:block", { "opacity-50 cursor-not-allowed": isSubmitting })}
+        >{isSubmitting ? "Guardando..." : "Guardar"}</button>
       </div>
 
       <div className="w-full">
@@ -262,7 +270,10 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
             ))}
           </div>
           <div>
-            <button className="btn-primary w-full sm:hidden block mt-4">Guardar</button>
+            <button type="submit"
+              disabled={isSubmitting}
+              className={clsx("btn-primary w-full sm:hidden block mt-4", { "opacity-50 cursor-not-allowed": isSubmitting })}
+            >{isSubmitting ? "Guardando..." : "Guardar"}</button>
           </div>
         </div>
       </div>

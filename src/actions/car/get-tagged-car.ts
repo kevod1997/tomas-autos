@@ -9,18 +9,16 @@ export const getCarsWithTagId = async () => {
 
     //1. Obtener los autos con tagId
     const cars = await prisma.car.findMany({
-        where: {
-            tagId: {
-                not: null
-            }
-        },
         take: take,
+        orderBy:{
+          tagId: 'asc',
+        },
         include: {
           CarImage: {
             orderBy: {
-              mainImage: 'desc' // Asegura que las imágenes principales vengan primero
+              mainImage: 'desc' 
             },
-            take: 1, // Asume que solo quieres la imagen principal
+            take: 1, 
             select: {
               url: true,
             },

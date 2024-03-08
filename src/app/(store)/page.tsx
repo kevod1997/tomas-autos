@@ -1,3 +1,5 @@
+export const revalidate = 600;
+
 import { CarGrid, CategoryCardGrid, Newsletter, Slider, TitleSeparetor } from "@/components";
 import { getCarsWithTagId } from "@/actions";
 

@@ -15,14 +15,14 @@ export const createUpdateCar = async (formData: FormData) => {
     
 
     if (!carParsed.success) {
-        console.log(carParsed.error);
+    
         return { ok: false }
     }
 
     const car = carParsed.data;
 
     const { id, mainImage, ...rest } = car;
-    console.log(mainImage)
+    
 
     try {
 

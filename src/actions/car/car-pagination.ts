@@ -1,7 +1,6 @@
 'use server'
 
 import prisma from "@/lib/prisma";
-import { ok } from "assert";
 
 interface PaginationOptions {
     page?: number;
@@ -35,9 +34,9 @@ interface PaginationOptions {
         include: {
           CarImage: {
             orderBy: {
-              mainImage: 'desc' // Asegura que las imágenes principales vengan primero
+              mainImage: 'desc' 
             },
-            take: 1, // Asume que solo quieres la imagen principal
+            take: 1, 
             select: {
               url: true,
             },

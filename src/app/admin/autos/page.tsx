@@ -1,9 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import { getPaginatedCarsWithImages } from "@/actions";
 import { Pagination } from "@/components";
-import { FaEdit } from 'react-icons/fa';
 import { DeleteButton } from "./ui/DeleteButton";
+import { EditButton } from "./ui/EditButton";
 
 interface Props {
   searchParams: {
@@ -86,9 +85,7 @@ export default async function CarsPage({ searchParams }: Props) {
                 {car.tag!}
               </td>
               <td className="text-sm font-medium text-gray-900 pl-2">
-                <Link href={`/admin/autos/${car.slug}`}>
-                  <FaEdit className="hover:scale-125" />
-                </Link>
+                <EditButton slug={car.slug} />
               </td>
               <td className="text-sm font-medium text-gray-900 ">
                 <DeleteButton car={car} />
