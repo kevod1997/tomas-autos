@@ -75,6 +75,7 @@ export const createUpdateCar = async (formData: FormData) => {
 
 
         revalidatePath('/admin/autos');
+        if(car.tagId) {revalidatePath('/')};
         revalidatePath(`/admin/autos/${car.slug}`);
         revalidatePath(`/unidades/${car.slug}`);
 
