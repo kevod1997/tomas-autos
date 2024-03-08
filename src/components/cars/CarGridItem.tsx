@@ -1,6 +1,6 @@
-export const revalidate = 86400;
-
 'use client'
+
+export const revalidate = 86400;
 
 import { motion } from 'framer-motion';
 import Image from "next/image";
