@@ -34,7 +34,9 @@ export const CarSlideshow = ( { images, title, className }: Props ) => {
   const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 
   const handleLoad = (url: string) => {
+    setTimeout(() => {
     setLoaded((prev) => ({ ...prev, [url]: true }));
+    }, 1000);
   };
 
 
