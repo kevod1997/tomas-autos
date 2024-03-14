@@ -3,6 +3,7 @@ import { inter } from "@/config/fonts";
 
 import "./globals.css";
 import { Providers } from "@/components";
+import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     default: "Home - Tomas Autos",
   },
   description: "Vende o compra tu auto con nosotros",
-  keywords: ["autos", "compra", "venta", "usados", "nuevos","olavarria", "tomasautos", "tomas autos", "tomas", "auto", "buenos aires", "argentina"],
+  keywords: ["autos", "compra", "venta", "usados", "nuevos", "olavarria", "tomasautos", "tomas autos", "tomas", "auto", "buenos aires", "argentina"],
 
 };
 
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        <Providers>
-        {children}
-        </Providers>
-        </body>
+        <Suspense>
+          <Providers>
+            {children}
+          </Providers>
+        </Suspense>
+      </body>
     </html>
   );
 }
