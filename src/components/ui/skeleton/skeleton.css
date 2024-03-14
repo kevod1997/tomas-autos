@@ -1,0 +1,14 @@
+@keyframes custom-pulse {
+    0%, 100% {
+      opacity: 1;
+      background-color: #f3f4f6; /* Color más claro */
+    }
+    50% {
+      opacity: .5;
+      background-color: #e5e7eb; /* Color más oscuro */
+    }
+  }
+  
+  .animate-custom-pulse {
+    animation: custom-pulse 1.5s ease-in-out infinite;
+  }
