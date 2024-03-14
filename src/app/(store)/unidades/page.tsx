@@ -36,9 +36,7 @@ export default async function CarsPage({ searchParams }: Props) {
           subtitle="Unidades disponibles"
           className="p-2 mb-4 "
         />
-        <Suspense>
-        <CarFilter />
-        </Suspense>
+
       </div>
       <CarGrid cars={cars!} />
             {totalPages! > 1 && (
