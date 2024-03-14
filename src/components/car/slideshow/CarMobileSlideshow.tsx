@@ -25,17 +25,19 @@ interface Props {
 
 
 
-export const CarMobileSlideshow = ( { images, title, className }: Props ) => {
+export const CarMobileSlideshow = ({ images, title, className }: Props) => {
   const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
+
+  console.log(loaded)
 
   const handleLoad = (url: string) => {
     setTimeout(() => {
       setLoaded((prev) => ({ ...prev, [url]: true }));
-      }, 1000);
+    }, 500);
   };
 
   return (
-    <div className={ className }>
+    <div className={className}>
 
       <Swiper
         style={{
@@ -46,25 +48,27 @@ export const CarMobileSlideshow = ( { images, title, className }: Props ) => {
         autoplay={{
           delay: 2500
         }}
-        modules={ [ FreeMode, Autoplay, Pagination ] }
+        modules={[FreeMode, Autoplay, Pagination]}
         className="mySwiper2"
       >
 
         {
-          images.map( image => (
-            <SwiperSlide key={ image }>
-               {!loaded[image] && <Skeleton/>}
+          images.map(image => (
+            <SwiperSlide key={image}>
+              {!loaded[image] && <Skeleton />}
               <Image
-                width={ 600 }
-                height={ 500 }
-                src={ image }
-                alt={ title }
-                className="object-fill"
+                width={600}
+                height={500}
+                src={image}
+                alt={title}
+                className={`object-fill transition-opacity duration-500 ${loaded[image] ? 'opacity-100' : 'opacity-0'}`}
                 onLoad={() => handleLoad(image)}
-                />
+              />
+
+
             </SwiperSlide>
-     
-          ) )
+
+          ))
         }
       </Swiper>
 

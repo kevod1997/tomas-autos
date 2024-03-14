@@ -27,81 +27,81 @@ interface Props {
 
 
 
-export const CarSlideshow = ( { images, title, className }: Props ) => {
+export const CarSlideshow = ({ images, title, className }: Props) => {
 
-  const [ thumbsSwiper, setThumbsSwiper ] = useState<SwiperObject>();
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperObject>();
 
   const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 
   const handleLoad = (url: string) => {
     setTimeout(() => {
-    setLoaded((prev) => ({ ...prev, [url]: true }));
-    }, 1000);
+      setLoaded((prev) => ({ ...prev, [url]: true }));
+    }, 500);
   };
 
 
   return (
-    <div className={ className }>
+    <div className={className}>
 
       <Swiper
-        style={ {
+        style={{
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
         } as React.CSSProperties
         }
-        spaceBetween={ 10 }
-        navigation={ true }
+        spaceBetween={10}
+        navigation={true}
         autoplay={{
           delay: 2500
         }}
-        thumbs={ {
+        thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
-        } }
-        modules={ [ FreeMode, Navigation, Thumbs, Autoplay ] }
+        }}
+        modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className="mySwiper2 width-[100%] h-[75vh] ml-auto mr-auto"
       >
 
         {
-          images.map( image => (
-            <SwiperSlide key={ image }>
-              {!loaded[image] && <Skeleton/>}
+          images.map(image => (
+            <SwiperSlide key={image}>
+              {!loaded[image] && <Skeleton />}
               <Image
-                width={ 1200 }
-                quality={ 100}
-                height={ 800 }
-                src={ image }
-                alt={ title }
-                className="rounded-lg"
+                width={1200}
+                quality={100}
+                height={800}
+                src={image}
+                alt={title}
+                className={`rounded-lg transition-opacity duration-500 ${loaded[image] ? 'opacity-100' : 'opacity-0'}`}
                 onLoad={() => handleLoad(image)}
               />
             </SwiperSlide>
-          ) )
+          ))
         }
       </Swiper>
 
 
       <Swiper
-        onSwiper={ setThumbsSwiper }
-        spaceBetween={ 10 }
-        slidesPerView={ 4 }
-        freeMode={ true }
-        watchSlidesProgress={ true }
-        modules={ [ FreeMode, Navigation, Thumbs ] }
+        onSwiper={setThumbsSwiper}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper mt-2"
       >
         {
-          images.map( image => (
-            <SwiperSlide key={ image }>
+          images.map(image => (
+            <SwiperSlide key={image}>
               <Image
-                width={ 200 }
-                height={ 200 }
-                src={ image }
-                alt={ title }
+                width={200}
+                height={200}
+                src={image}
+                alt={title}
                 className="rounded-lg object-fill"
               />
             </SwiperSlide>
 
-          ) )
+          ))
         }
       </Swiper>
 
