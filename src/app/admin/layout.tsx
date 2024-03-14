@@ -6,6 +6,8 @@ import { useRouter, usePathname } from 'next/navigation';
 
 import { SignIn, UserButton, useUser } from '@clerk/nextjs';
 import clsx from 'clsx';
+import { UseRedirect } from '@/hooks/useRedirect';
+import { RedirectAnimation } from '@/components';
 
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
 }
 
 export default function AdminLayout({ children }: Props) {
+    const { isRedirecting, redirectTo } = UseRedirect();
     const { user, isSignedIn, isLoaded } = useUser();
     const router = useRouter();
     const params = usePathname();
@@ -26,7 +29,7 @@ export default function AdminLayout({ children }: Props) {
                 router.push('/admin/autos');
             }
         }
-    }, [isLoaded, isSignedIn, user, router]);
+    }, [isLoaded, isSignedIn, user, router, params]);
 
     if (!isLoaded) {
         return <div className="h-screen flex justify-center items-center">
@@ -39,22 +42,34 @@ export default function AdminLayout({ children }: Props) {
     }
     else if (isSignedIn && user?.organizationMemberships[0]?.role === 'org:admin') {
         return (
-            <div className="h-screen">
-                <div className="sm:px-5 py-4 flex items-center gap-4 sm:gap-12 bg-slate-300 text-xs sm:text-base">
-                    <UserButton afterSignOutUrl='/' />
-                    <p className="bg-white rounded-md shadow-md  p-1 font-semibold">Panel de Administrador</p>
-                    <Link href='/admin/autos' className={clsx(" p-1 font-semibold hover:text-blue-700", {
-                        "text-blue-600": params === '/admin/autos',
-                    })}
-                    >Autos</Link >
-                    <Link href='/admin/autos/nuevo' className={clsx(" p-1 font-semibold hover:text-blue-700", {
-                        "text-blue-600": params === '/admin/autos/nuevo',
-                    })}>Agregar Auto</Link >
-                    <Link href='/' className="p-1 font-semibold hover:text-blue-700"
-                    >Ir al home</Link >
+            <>
+                <div className="h-screen">
+                    <div className="sm:px-5 py-4 flex items-center gap-4 sm:gap-12 bg-slate-300 text-xs sm:text-base">
+                        <UserButton afterSignOutUrl='/' />
+                        <p className="bg-white rounded-md shadow-md  p-1 font-semibold">Panel de Administrador</p>
+                        <Link onClick={() => {
+                            if ('/admin/autos' !== params) redirectTo()
+                        }
+                        } href='/admin/autos' className={clsx(" p-1 font-semibold hover:text-blue-700", {
+                            "text-blue-600": params === '/admin/autos',
+                        })}
+                        >Autos</Link >
+                        <Link onClick={() => {
+                            if ('/admin/autos/nuevo' !== params) redirectTo()
+                        }
+                        } href='/admin/autos/nuevo' className={clsx(" p-1 font-semibold hover:text-blue-700", {
+                            "text-blue-600": params === '/admin/autos/nuevo',
+                        })}>Agregar Auto</Link >
+                        <Link onClick={() => {
+                            if ('/' !== params) redirectTo()
+                        }
+                        } href='/' className="p-1 font-semibold hover:text-blue-700"
+                        >Ir al home</Link >
+                    </div>
+                    {children}
                 </div>
-                {children}
-            </div>
+                <RedirectAnimation isRedirecting={isRedirecting} />
+            </>
         );
     } else {
         return (

@@ -5,9 +5,10 @@ interface Props {
   description: string;
   icon: JSX.Element;
   href?: string;
+  onClick?: () => void;
 }
 
-export const CategoryCard = ({ title, description, icon, href }: Props) => {
+export const CategoryCard = ({ title, description, icon, href, onClick }: Props) => {
   const cardContent = (
     <div className="flex justify-center items-center h-full">
       <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out w-full sm:max-w-md md:max-w-lg">
@@ -27,7 +28,7 @@ export const CategoryCard = ({ title, description, icon, href }: Props) => {
   );
 
   return href ? (
-    <Link href={href}>{cardContent}</Link>
+    <Link href={href} onClick={onClick}>{cardContent}</Link>
   ) : (
     cardContent
   );

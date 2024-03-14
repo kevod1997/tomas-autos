@@ -49,16 +49,16 @@ export const CarSlideshow = ( { images, title, className }: Props ) => {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
         } }
         modules={ [ FreeMode, Navigation, Thumbs, Autoplay ] }
-        className="mySwiper2 width-[100%] h-[58vh] ml-auto mr-auto"
+        className="mySwiper2 width-[100%] h-[75vh] ml-auto mr-auto"
       >
 
         {
           images.map( image => (
             <SwiperSlide key={ image }>
               <Image
-                width={ 700 }
+                width={ 1200 }
                 quality={ 100}
-                height={ 300 }
+                height={ 800 }
                 src={ image }
                 alt={ title }
                 className="rounded-lg"
@@ -83,8 +83,8 @@ export const CarSlideshow = ( { images, title, className }: Props ) => {
           images.map( image => (
             <SwiperSlide key={ image }>
               <Image
-                width={ 250 }
-                height={ 250 }
+                width={ 200 }
+                height={ 200 }
                 src={ image }
                 alt={ title }
                 className="rounded-lg object-fill"

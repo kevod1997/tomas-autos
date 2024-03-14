@@ -67,7 +67,7 @@ export default async function CarBySlugPage({ params }: Props) {
       </div>
       <div className="mt-5  mb-20 grid grid-cols-1 md:grid-cols-10 gap-3">
         {/* Slideshow */}
-        <div className="col-span-1 md:col-span-6 md:w-[93%]">
+        <div className="col-span-1 md:col-span-6 md:w-[95%]">
           {/* Mobile Slideshow */}
           <CarMobileSlideshow
             title={car?.title ?? "Producto no encontrado"}

@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useUIStore } from '@/store';
 import clsx from "clsx";
 import { useUser } from "@clerk/nextjs";
+import { UseRedirect } from "@/hooks/useRedirect";
+import { RedirectAnimation } from "../redirect/RedirectAnimation";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   { href: "/", label: "Home" },
@@ -15,14 +18,18 @@ const menuItems = [
 
 
 export const TopMenu = () => {
-
+  const { isRedirecting, redirectTo } = UseRedirect();
   const { user } = useUser();
+  const params = usePathname();
   const openSideMenu = useUIStore((state) => state.openSideMenu);
 
   return (
     <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse ml-6 sm:ml-0">
+        <Link onClick={() => {
+                  if ("/" !== params) redirectTo()
+                }
+                }  href="/" className="flex items-center space-x-3 rtl:space-x-reverse ml-6 sm:ml-0">
           <Image src="/imgs/logo.jpg" height={75} width={75} alt="Logo" />
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -43,7 +50,10 @@ export const TopMenu = () => {
                 }
               );
               return (
-                <Link key={item.href} href={item.href} className={classname}>
+                <Link onClick={() => {
+                  if (item.href !== params) redirectTo()
+                }
+                } key={item.href} href={item.href} className={classname}>
                   {item.label}
                 </Link>
               );
@@ -52,6 +62,7 @@ export const TopMenu = () => {
           </div>
         </div>
       </div>
+      <RedirectAnimation isRedirecting={isRedirecting} />
     </nav>
   );
 };

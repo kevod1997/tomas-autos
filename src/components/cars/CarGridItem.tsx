@@ -7,12 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Car, CarImage } from '@/interfaces';
 import clsx from 'clsx';
+import { UseRedirect } from '@/hooks/useRedirect';
+import { RedirectAnimation } from '../ui/redirect/RedirectAnimation';
 
 interface Props {
     car: Partial<Car> & { CarImage?: CarImage[] }
 }
 
 export const CarGridItem = ({ car }: Props) => {
+    const {redirectTo, isRedirecting} =  UseRedirect();
     const variants = {
         hidden: { opacity: 0, x: -50 },
         visible: { opacity: 1, x: 0 },
@@ -39,7 +42,7 @@ export const CarGridItem = ({ car }: Props) => {
             <p className="text-sm text-gray-600 line-clamp-1">{car.model}</p>
             <p className="font-bold mt-2 text-xl">U$S {car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
-            <Link href={`/unidades/${car.slug}`}>
+            <Link href={`/unidades/${car.slug}`} onClick={() => redirectTo()}>
                 <button className="btn-primary w-full text-center">VER MÁS</button>
             </Link>
         </div>
@@ -76,7 +79,7 @@ export const CarGridItem = ({ car }: Props) => {
             <p className="text-sm text-gray-600">F{car.model}</p>
             <p className="text-2xl font-bold mt-2">U$S {car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
-            <Link href={`/unidades/${car.slug}`}>
+            <Link href={`/unidades/${car.slug}`} onClick={()=> redirectTo()}>
                 <button className="btn-primary w-full text-center">VER MÁS</button>
             </Link>
         </motion.div>
@@ -93,6 +96,7 @@ export const CarGridItem = ({ car }: Props) => {
             <div className="md:hidden">
                 <StaticComponent />
             </div>
+            <RedirectAnimation isRedirecting={isRedirecting} />
         </>
     );
 };
