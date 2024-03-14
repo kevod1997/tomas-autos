@@ -36,7 +36,7 @@ export const CarSlideshow = ({ images, title, className }: Props) => {
   const handleLoad = (url: string) => {
     setTimeout(() => {
       setLoaded((prev) => ({ ...prev, [url]: true }));
-    }, 500);
+    }, 1500);
   };
 
 
