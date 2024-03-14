@@ -18,3 +18,4 @@ export * from "./ui/whtasapp-sticky/WhatsappStickyIcon";
 export * from "./ui/pagination/Pagination"
 export * from "./ui/not-found/PageNotFound"
 export * from "./ui/redirect/RedirectAnimation"
+export * from "./ui/skeleton/Skeleton"

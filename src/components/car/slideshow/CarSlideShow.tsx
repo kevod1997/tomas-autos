@@ -14,6 +14,7 @@ import 'swiper/css/thumbs';
 
 import './slideshow.css';
 import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton/Skeleton';
 
 
 
@@ -29,6 +30,12 @@ interface Props {
 export const CarSlideshow = ( { images, title, className }: Props ) => {
 
   const [ thumbsSwiper, setThumbsSwiper ] = useState<SwiperObject>();
+
+  const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
+
+  const handleLoad = (url: string) => {
+    setLoaded((prev) => ({ ...prev, [url]: true }));
+  };
 
 
   return (
@@ -55,6 +62,7 @@ export const CarSlideshow = ( { images, title, className }: Props ) => {
         {
           images.map( image => (
             <SwiperSlide key={ image }>
+              {!loaded[image] && <Skeleton/>}
               <Image
                 width={ 1200 }
                 quality={ 100}
@@ -62,9 +70,9 @@ export const CarSlideshow = ( { images, title, className }: Props ) => {
                 src={ image }
                 alt={ title }
                 className="rounded-lg"
+                onLoad={() => handleLoad(image)}
               />
             </SwiperSlide>
-
           ) )
         }
       </Swiper>

@@ -8,6 +8,7 @@ import { getCarBySlug } from "@/actions";
 import { Title, CarMobileSlideshow, CarSlideshow } from "@/components";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { SharingAndContactSection } from "./ui/sharing-contact.section/SharingAndContact";
+import { BackwardButton } from "./ui/buttons/BackwardButton";
 
 interface Props {
   params: {
@@ -61,9 +62,7 @@ export default async function CarBySlugPage({ params }: Props) {
           subtitle={car?.category}
           className="p-2"
         />
-        <Link href={"/unidades"}>
-          <IoArrowBackOutline className="hover:scale-110 text-black" size={35} />
-        </Link>
+        <BackwardButton />
       </div>
       <div className="mt-5  mb-20 grid grid-cols-1 md:grid-cols-10 gap-3">
         {/* Slideshow */}

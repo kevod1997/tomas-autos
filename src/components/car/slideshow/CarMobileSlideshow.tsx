@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton/Skeleton';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
@@ -14,6 +16,7 @@ import './slideshow.css';
 
 
 
+
 interface Props {
   images: string[];
   title: string;
@@ -23,7 +26,11 @@ interface Props {
 
 
 export const CarMobileSlideshow = ( { images, title, className }: Props ) => {
+  const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 
+  const handleLoad = (url: string) => {
+    setLoaded((prev) => ({ ...prev, [url]: true }));
+  };
 
   return (
     <div className={ className }>
@@ -44,15 +51,17 @@ export const CarMobileSlideshow = ( { images, title, className }: Props ) => {
         {
           images.map( image => (
             <SwiperSlide key={ image }>
+               {!loaded[image] && <Skeleton/>}
               <Image
                 width={ 600 }
                 height={ 500 }
                 src={ image }
                 alt={ title }
                 className="object-fill"
-              />
+                onLoad={() => handleLoad(image)}
+                />
             </SwiperSlide>
-
+     
           ) )
         }
       </Swiper>
