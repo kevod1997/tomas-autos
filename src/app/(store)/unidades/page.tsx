@@ -2,6 +2,7 @@ import { CarGrid, Pagination, Title } from "@/components";
 import { getPaginatedCarsWithImages } from "@/actions";
 import { CarFilter } from "./ui/CarFilter";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export const metadata = {
   title: 'Unidades',
@@ -35,7 +36,9 @@ export default async function CarsPage({ searchParams }: Props) {
           subtitle="Unidades disponibles"
           className="p-2 mb-4 "
         />
+        <Suspense>
         <CarFilter />
+        </Suspense>
       </div>
       <CarGrid cars={cars!} />
             {totalPages! > 1 && (

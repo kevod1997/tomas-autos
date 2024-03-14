@@ -3,7 +3,7 @@
 import { RedirectAnimation } from "@/components";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { stringify } from "querystring";
-import { Suspense, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const CarFilter = () => {
 
@@ -50,7 +50,7 @@ export const CarFilter = () => {
  
 
   return (
-    <Suspense>
+    <>
       <div className="relative">
         <select onChange={handleChange} className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
           <option value="">Más Relevantes</option>
@@ -66,6 +66,6 @@ export const CarFilter = () => {
         </div>
       </div>
       <RedirectAnimation isRedirecting={isRedirecting} />
-    </Suspense>
+    </>
   )
 }
