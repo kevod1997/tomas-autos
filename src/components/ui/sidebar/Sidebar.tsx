@@ -6,11 +6,16 @@ import Link from "next/link";
 import { IoCloseOutline, IoCarSportOutline, IoCashOutline, IoDiamondSharp } from "react-icons/io5";
 import WhatsAppLink from "./whatsapp/WhatsAppLogo";
 import { useUser } from "@clerk/nextjs";
+import { UseRedirect } from "@/hooks/useRedirect";
+import { usePathname } from "next/navigation";
+import { RedirectAnimation } from "../redirect/RedirectAnimation";
 
 
 
 
 export const Sidebar = () => {
+    const { isRedirecting, redirectTo } = UseRedirect();
+    const params = usePathname();
     const {user} = useUser();
     const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
     const closeMenu = useUIStore((state) => state.closeSideMenu);
@@ -45,8 +50,12 @@ export const Sidebar = () => {
                 />
 
                 <Link
+
                     href="/unidades"
-                    onClick={() => closeMenu()}
+                    onClick={() => {
+                        if ("/unidades" !== params) redirectTo();
+                        closeMenu();
+                    }}
                     className="flex items-center mt-16 p-2 hover:bg-gray-100 rounded transition-all"
                 >
                     <IoCarSportOutline size={30} />
@@ -54,7 +63,10 @@ export const Sidebar = () => {
                 </Link>
                 <Link
                     href="/vende"
-                    onClick={() => closeMenu()}
+                    onClick={() => {
+                        if ("/vende" !== params) redirectTo();
+                        closeMenu();
+                    }}
                     className="flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all"
                 >
                     <IoCashOutline size={30} />
@@ -62,7 +74,10 @@ export const Sidebar = () => {
                 </Link>
                 <Link
                     href="/admin/autos"
-                    onClick={() => closeMenu()}
+                    onClick={() => {
+                        if ("/admin/autos" !== params) redirectTo();
+                        closeMenu();
+                    }}
                     className={clsx(
                         "flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all",
                         {
@@ -82,6 +97,7 @@ export const Sidebar = () => {
                 <WhatsAppLink name="Juani" spanClassname="ml-3 text-xl" linkClassName="flex items-center p-2 hover:bg-gray-100 rounded transition-all" />
                 <WhatsAppLink name="Tomas" spanClassname="ml-3 text-xl" linkClassName="flex items-center p-2 hover:bg-gray-100 rounded transition-all" />
             </nav>
+                <RedirectAnimation isRedirecting={isRedirecting} />
 
         </div>
     );

@@ -13,7 +13,7 @@ const menuItems = [
   { href: "/", label: "Home" },
   { href: "/unidades", label: "Unidades" },
   { href: "/vende", label: "Vende tu auto" },
-  { href: "/admin", label: "Panel de administrador" },
+  { href: "/admin/autos", label: "Panel de administrador" },
 ];
 
 
