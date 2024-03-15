@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Skeleton } from '@/components/ui/skeleton/Skeleton';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
@@ -55,16 +54,14 @@ export const CarMobileSlideshow = ({ images, title, className }: Props) => {
         {
           images.map(image => (
             <SwiperSlide key={image}>
-              {!loaded[image] && <Skeleton />}
               <Image
                 width={600}
                 height={500}
                 src={image}
                 alt={title}
-                className={`object-fill transition-opacity duration-500 ${loaded[image] ? 'opacity-100' : 'opacity-0'}`}
+                className={`object-fill transition-opacity duration-500 ${loaded[image] ? 'opacity-100' : 'opacity-10 animate-pulse'}`}
                 onLoad={() => handleLoad(image)}
               />
-
 
             </SwiperSlide>
 
