@@ -57,7 +57,19 @@ export const createUpdateCar = async (formData: FormData) => {
         }
 
         // Proceso de carga y guardado de imagenes
-        // Recorrer las imagenes y guardarlas
+
+        const imagesLength = await prisma.carImage.count({
+            where: { carId: car.id }
+        });
+
+        if(imagesLength + formData.getAll('images').length > 5) {
+            return {
+                ok: false,
+                message: 'No se pueden agregar más de 5 imágenes por auto'
+            }
+        }
+        console.log(imagesLength, formData.getAll('images').length);
+
         if (formData.getAll('images')) {
             // [https://url.jpg, https://url.jpg]
             const images = await uploadImages(formData.getAll('images') as File[]);

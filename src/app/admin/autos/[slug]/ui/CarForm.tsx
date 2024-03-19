@@ -76,7 +76,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
         formData.append('images', images[i]);
       }
     }
-    const { ok, car: updatedCar } = await createUpdateCar(formData);
+    const { ok, message, car: updatedCar } = await createUpdateCar(formData);
 
     if (ok) {
       let message = '';
@@ -91,6 +91,7 @@ export const CarForm = ({ car, brands, tags, fuels }: Props) => {
       }
       await mostrarAlertaExito(message);
     } else {
+      message ? mostrarAlertaError(message) :
       mostrarAlertaError('No se pudo completar la operación. Volve a intentar.');
     }
     setIsSubmitting(false);
