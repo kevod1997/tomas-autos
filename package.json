@@ -12,6 +12,7 @@
     "seed": "ts-node src/seed/seed-database.ts"
   },
   "dependencies": {
+    "@clerk/localizations": "^1.26.16",
     "@clerk/nextjs": "^4.29.8",
     "@prisma/client": "^5.9.1",
     "bcryptjs": "^2.4.3",
