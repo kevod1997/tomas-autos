@@ -76,7 +76,7 @@ export const CarGridItem = ({ car }: Props) => {
                 </div>
             </div>
             <h3 className="text-lg font-semibold mt-4 title line-clamp-1">{car.title}</h3>
-            <p className="text-sm text-gray-600">F{car.model}</p>
+            <p className="text-sm text-gray-600">{car.model}</p>
             <p className="text-2xl font-bold mt-2">U$S {car.price?.toLocaleString('de-DE')}</p>
             <p className="text-sm text-gray-600 mb-2">{car.year} - {car.kms?.toLocaleString('de-DE')} KM</p>
             <Link href={`/unidades/${car.slug}`} onClick={()=> redirectTo()}>
